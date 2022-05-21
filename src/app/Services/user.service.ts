@@ -8,14 +8,21 @@ import { UserDTO } from '../Models/user.dto';
 })
 export class UserService {
   private urlApi: string;
-  private controller: string;
   constructor(private http: HttpClient) {
-    this.controller = 'signup';
-    this.urlApi = 'http://localhost:9000/Api/' + this.controller;
+    this.urlApi = 'http://localhost:9000/Api/';
   }
 
   signUp(user: UserDTO): Observable<UserDTO> {
-    return this.http.post<UserDTO>(this.urlApi, user);
+    return this.http.post<UserDTO>(this.urlApi + 'signup', user);
     //.pipe(catchError(this.sharedService.handleError));
+  }
+
+  getUSerById(userId: string): Observable<UserDTO> {
+    return this.http.get<UserDTO>(this.urlApi + 'users/' + userId);
+    //.pipe(catchError(this.sharedService.handleError));
+  }
+
+  updateUser(userId: string, user: UserDTO): Observable<UserDTO> {
+    return this.http.put<UserDTO>(this.urlApi + 'users/' + userId, user);
   }
 }

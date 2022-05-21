@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
@@ -7,7 +8,9 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthDTO } from 'src/app/Models/auth.dto';
-import { AuthService } from 'src/app/Services/auth.service';
+import { HeaderMenus } from 'src/app/Models/header-menus.dto';
+import { AuthService, AuthToken } from 'src/app/Services/auth.service';
+import { HeaderMenusService } from 'src/app/Services/header-menus.service';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 
 @Component({
@@ -27,7 +30,8 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private headerMenusService: HeaderMenusService
   ) {
     this.loginUser = new AuthDTO('', '', '', '');
 
@@ -54,6 +58,8 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     this.isValidForm = false;
+    let responseOK: boolean = false;
+    let responseError: any;
     console.log('Se ha llamado a login, ahora hay que llamar al backend');
 
     if (this.loginForm.invalid) {
@@ -63,8 +69,37 @@ export class LoginComponent implements OnInit {
     this.loginUser = this.loginForm.value;
     console.log(this.loginUser);
 
-    this.authService.login(this.loginUser).subscribe();
-    this.loginForm.reset();
-    this.router.navigateByUrl('');
+    this.authService.login(this.loginUser).subscribe(
+      (resp: AuthToken) => {
+        responseOK = true;
+        console.log('responseOK true');
+        console.log(resp);
+        this.loginUser.id = resp.id;
+        this.loginUser.accessToken = resp.accessToken;
+
+        this.localStorageService.set('id', this.loginUser.id);
+        this.localStorageService.set('accessToken', this.loginUser.accessToken);
+
+        const headerInfo: HeaderMenus = {
+          showAuthSection: true,
+          showNoAuthSection: false,
+        };
+        this.headerMenusService.headerManagement.next(headerInfo);
+        this.loginForm.reset();
+        //this.router.navigateByUrl('');
+      },
+      (error: HttpErrorResponse) => {
+        responseOK = false;
+        console.log('responseOK false');
+        responseError = error.error;
+        const headerInfo: HeaderMenus = {
+          showAuthSection: false,
+          showNoAuthSection: true,
+        };
+        this.headerMenusService.headerManagement.next(headerInfo);
+      }
+    );
+    //this.loginForm.reset();
+    //this.router.navigateByUrl('profile');
   }
 }

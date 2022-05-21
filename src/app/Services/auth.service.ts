@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { AuthDTO } from '../Models/auth.dto';
 
 export interface AuthToken {
-  user_id: string;
-  access_token: string;
+  id: string;
+  accessToken: string;
+  resOK: boolean;
 }
 
 @Injectable({

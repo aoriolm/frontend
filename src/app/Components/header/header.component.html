@@ -1,1 +1,40 @@
-<p>header works!</p>
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Sheila Homs | Centre d'estètica</title>
+    <meta name="author" content="Alexandre Oriol" />
+    <meta
+      name="description"
+      content="Información sobre el centro de estética Sheila Homs"
+    />
+
+    <link rel="stylesheet" href="header.component.sass" />
+  </head>
+
+  <body>
+    <header class="pre-header">
+      <div class="main-header">
+        <div class="logo-img">
+          <img class="imagen" src="./assets/img/logo.png" alt="logo" />
+        </div>
+        <div class="logo-header">
+          <span class="site-name">Sheyla Homs Centre d'estètica</span>
+        </div>
+        <div *ngIf="showNoAuthSection">
+          <button (click)="navigationTo('login')">Iniciar sesión</button>
+          <button (click)="navigationTo('signup')">Registrarse</button>
+        </div>
+
+        <!-- AUTH REQUIRED -->
+        <div *ngIf="showAuthSection">
+          <!--<button (click)="navigationTo('home')">Home</button>
+          <button (click)="navigationTo('posts')">Admin posts</button> -->
+          <button (click)="navigationTo('form-citas')">Crear cita</button>
+          <button (click)="navigationTo('profile')">Profile</button>
+          <button (click)="navigationTo('logout')">Logout</button>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

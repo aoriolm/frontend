@@ -1,6 +1,6 @@
 <div>
-  <h1>Signup</h1>
-  <form [formGroup]="signupForm" (ngSubmit)="signup()">
+  <h1>Profile</h1>
+  <form [formGroup]="updateForm" (ngSubmit)="update()">
     <div>
       <label for="email">Email: </label>
       <input type="email" [formControl]="email" />
@@ -59,7 +59,7 @@
       </div>
     </div>
     <div>
-      <label for="apellido2">Apellido2: </label>
+      <label for="apelllido2">Apellido2: </label>
       <input type="text" [formControl]="apellido2" />
       <div
         *ngIf="apellido2.errors && isValidForm != null && !isValidForm"
@@ -136,6 +136,6 @@
       </div>
     </div>
 
-    <button type="submit">Signup</button>
+    <button type="submit">Actualizar</button>
   </form>
 </div>

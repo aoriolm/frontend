@@ -6,7 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { LoginComponent } from './Components/login/login.component';
+import { ProfileComponent } from './Components/profile/profile.component';
 import { SignupComponent } from './Components/signup/signup.component';
+import { FormCitasComponent } from './Components/citas/form-citas/form-citas.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +16,8 @@ import { SignupComponent } from './Components/signup/signup.component';
     HeaderComponent,
     LoginComponent,
     SignupComponent,
+    ProfileComponent,
+    FormCitasComponent,
   ],
   imports: [
     BrowserModule,
