@@ -1,0 +1,60 @@
+<div>
+  <h1>Crear un servicio</h1>
+  <form [formGroup]="servicioForm" (ngSubmit)="crearServicio()">
+    <div>
+      <label for="nombre">Nombre: </label>
+      <input type="text" [formControl]="nombre" />
+      <div
+        *ngIf="nombre.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="nombre.errors.required">Nombre is required</div>
+        <div *ngIf="nombre.errors.minlength">
+          Nombre must be at least 5 characters long.
+        </div>
+        <div *ngIf="nombre.errors.maxlength">
+          Nombre can be max 25 characters long.
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="descripcion">Descripcion: </label>
+      <input type="text" [formControl]="descripcion" />
+      <div
+        *ngIf="descripcion.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="descripcion.errors.required">descripcion is required</div>
+        <div *ngIf="descripcion.errors.minlength">
+          descripcion must be at least 5 characters long.
+        </div>
+        <div *ngIf="descripcion.errors.maxlength">
+          descripcion can be max 250 characters long.
+        </div>
+      </div>
+    </div>
+    <div>
+      <label for="duracion">Duracion: </label>
+      <input type="text" [formControl]="duracion" />
+      <div
+        *ngIf="duracion.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="duracion.errors.required">duracion is required</div>
+      </div>
+    </div>
+
+    <div>
+      <label for="precio">Precio: </label>
+      <input type="text" [formControl]="precio" />
+      <div
+        *ngIf="precio.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="precio.errors.required">precio is required</div>
+      </div>
+    </div>
+
+    <button type="submit">Crear Servicio</button>
+  </form>
+</div>

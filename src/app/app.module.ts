@@ -9,6 +9,10 @@ import { LoginComponent } from './Components/login/login.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { SignupComponent } from './Components/signup/signup.component';
 import { FormCitasComponent } from './Components/citas/form-citas/form-citas.component';
+import { HomeComponent } from './Components/home/home.component';
+import { DashboardComponent } from './Components/dashboard/dashboard.component';
+import { FormServiciosComponent } from './Components/servicios/form-servicios/form-servicios.component';
+import { ListServiciosComponent } from './Components/servicios/list-servicios/list-servicios.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +22,10 @@ import { FormCitasComponent } from './Components/citas/form-citas/form-citas.com
     SignupComponent,
     ProfileComponent,
     FormCitasComponent,
+    HomeComponent,
+    DashboardComponent,
+    FormServiciosComponent,
+    ListServiciosComponent,
   ],
   imports: [
     BrowserModule,
