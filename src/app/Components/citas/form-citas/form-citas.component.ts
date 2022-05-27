@@ -8,6 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CitaDTO } from 'src/app/Models/cita.dto';
+import { EventDTO } from 'src/app/Models/event.dto';
 import { CitaService } from 'src/app/Services/cita.service';
 
 @Component({
@@ -17,9 +18,9 @@ import { CitaService } from 'src/app/Services/cita.service';
 })
 export class FormCitasComponent implements OnInit {
   signupCita: CitaDTO;
+  newEvent: EventDTO;
 
-  fecha: FormControl;
-  hora: FormControl;
+  start: FormControl;
   duracion: FormControl;
   email: FormControl;
   nombre: FormControl;
@@ -39,7 +40,6 @@ export class FormCitasComponent implements OnInit {
   ) {
     this.signupCita = new CitaDTO(
       new Date(),
-      new Date(),
       Number(null),
       '',
       '',
@@ -49,15 +49,12 @@ export class FormCitasComponent implements OnInit {
       Number(null),
       Number(null)
     );
+
+    this.newEvent = new EventDTO(new Date(), new Date(), '');
     this.isValidForm = null;
 
-    this.fecha = new FormControl(
-      formatDate(this.signupCita.fecha, 'yyyy-MM-dd', 'en'),
-      [Validators.required]
-    );
-
-    this.hora = new FormControl(
-      formatDate(this.signupCita.hora, 'yyyy-MM-dd', 'en'),
+    this.start = new FormControl(
+      formatDate(this.signupCita.start, 'yyyy-MM-dd', 'en'),
       [Validators.required]
     );
 
@@ -103,8 +100,7 @@ export class FormCitasComponent implements OnInit {
     ]);
 
     this.citaForm = this.formBuilder.group({
-      fecha: this.fecha,
-      hora: this.hora,
+      start: this.start,
       duracion: this.duracion,
       email: this.email,
       nombre: this.nombre,
@@ -128,9 +124,20 @@ export class FormCitasComponent implements OnInit {
     this.isValidForm = true;
     this.signupCita = this.citaForm.value;
     console.log(this.signupCita);
+    this.newEvent.start = this.signupCita.start;
+    console.log(this.newEvent.start);
+    this.newEvent.end = new Date(
+      new Date(this.signupCita.start).getTime() +
+        this.signupCita.duracion * 60000
+    );
+    console.log(this.newEvent.end);
+    this.newEvent.title = this.signupCita.servicios[0]; //hacer una funcion para concatenar todos los servicios
+    console.log(this.newEvent.title);
 
     this.citaService.crearCita(this.signupCita).subscribe();
-    this.citaForm.reset();
+    this.citaService.crearEvent(this.newEvent).subscribe();
+
+    //this.citaForm.reset();
     this.router.navigateByUrl('');
   }
 }

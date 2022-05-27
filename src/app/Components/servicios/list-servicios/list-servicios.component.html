@@ -1,1 +1,26 @@
-<p>list-servicios works!</p>
+<h2>Categories List</h2>
+<button (click)="createServicio()">ADD</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>NOMBRE</th>
+      <th>DESCRIPTION</th>
+      <th>PRECIO</th>
+      <th>DURACION</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let servicio of servicios">
+      <td>{{ servicio._id }}</td>
+      <td>{{ servicio.nombre }}</td>
+      <td>{{ servicio.descripcion }}</td>
+      <td>{{ servicio.duracion }}</td>
+      <td>
+        <button (click)="createServicio()">UPDATE</button>
+        <button (click)="createServicio()">DELETE</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

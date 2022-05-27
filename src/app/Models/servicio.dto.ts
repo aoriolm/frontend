@@ -1,5 +1,5 @@
 export class ServicioDTO {
-  id?: string;
+  _id?: string;
   nombre: string;
   descripcion: string;
   precio: number;

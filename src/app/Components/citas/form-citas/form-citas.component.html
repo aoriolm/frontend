@@ -2,23 +2,13 @@
   <h1>Crear una cita</h1>
   <form [formGroup]="citaForm" (ngSubmit)="crearCita()">
     <div>
-      <label for="fecha">Fecha: </label>
-      <input type="date" [formControl]="fecha" />
+      <label for="start">Fecha y hora: </label>
+      <input type="datetime-local" [formControl]="start" />
       <div
-        *ngIf="fecha.errors && isValidForm != null && !isValidForm"
+        *ngIf="start.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="fecha.errors.required">Birth date is required</div>
-      </div>
-    </div>
-    <div>
-      <label for="hora">hora: </label>
-      <input type="date" [formControl]="hora" />
-      <div
-        *ngIf="hora.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="hora.errors.required">Birth date is required</div>
+        <div *ngIf="start.errors.required">Birth date is required</div>
       </div>
     </div>
     <div>

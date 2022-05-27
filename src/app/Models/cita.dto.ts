@@ -1,7 +1,6 @@
 export class CitaDTO {
-  id?: string;
-  fecha: Date;
-  hora: Date;
+  _id?: string;
+  start: Date;
   duracion: number;
   email: string;
   nombre: string;
@@ -12,8 +11,7 @@ export class CitaDTO {
   tel2: number;
 
   constructor(
-    fecha: Date,
-    hora: Date,
+    start: Date,
     duracion: number,
     email: string,
     nombre: string,
@@ -23,8 +21,7 @@ export class CitaDTO {
     tel1: number,
     tel2: number
   ) {
-    this.fecha = fecha;
-    this.hora = hora;
+    this.start = start;
     this.duracion = duracion;
     this.email = email;
     this.nombre = nombre;

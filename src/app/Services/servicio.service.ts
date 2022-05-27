@@ -16,4 +16,8 @@ export class ServicioService {
   crearServicio(servicio: ServicioDTO): Observable<ServicioDTO> {
     return this.http.post<ServicioDTO>(this.urlApi + 'servicios', servicio);
   }
+
+  obtenerServicios(): Observable<ServicioDTO[]> {
+    return this.http.get<ServicioDTO[]>(this.urlApi + 'servicios');
+  }
 }
