@@ -20,4 +20,8 @@ export class ServicioService {
   obtenerServicios(): Observable<ServicioDTO[]> {
     return this.http.get<ServicioDTO[]>(this.urlApi + 'servicios');
   }
+
+  getServicioById(servicioId: string): Observable<ServicioDTO> {
+    return this.http.get<ServicioDTO>(this.urlApi + 'servicios/' + servicioId);
+  }
 }

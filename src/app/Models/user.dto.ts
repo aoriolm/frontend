@@ -1,5 +1,5 @@
 export class UserDTO {
-  id?: string;
+  _id?: string;
   accessToken?: string;
   email: string;
   password: string;

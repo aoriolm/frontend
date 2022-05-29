@@ -11,115 +11,23 @@
         <div *ngIf="start.errors.required">Birth date is required</div>
       </div>
     </div>
+
     <div>
-      <label for="duracion">Duracion: </label>
-      <input type="text" [formControl]="duracion" />
-      <div
-        *ngIf="duracion.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="duracion.errors.required">duracion is required</div>
-      </div>
-    </div>
-    <div>
-      <label for="email">Email: </label>
-      <input type="email" [formControl]="email" />
-      <div
-        *ngIf="email.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="email.errors.required">Email es required</div>
-        <div *ngIf="email.errors.pattern">Email not a valid format.</div>
-      </div>
+      <label for="users">Choose users:</label>
+      <select [formControl]="user">
+        <option *ngFor="let user of userList" [ngValue]="user._id">
+          {{ user.nombre + " " + user.apellido1 + " / " + user.email }}
+        </option>
+      </select>
     </div>
 
     <div>
-      <label for="nombre">Nombre: </label>
-      <input type="text" [formControl]="nombre" />
-      <div
-        *ngIf="nombre.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="nombre.errors.required">Nombre is required</div>
-        <div *ngIf="nombre.errors.minlength">
-          Nombre must be at least 5 characters long.
-        </div>
-        <div *ngIf="nombre.errors.maxlength">
-          Nombre can be max 25 characters long.
-        </div>
-      </div>
-    </div>
-    <div>
-      <label for="apellido1">Apellido1: </label>
-      <input type="text" [formControl]="apellido1" />
-      <div
-        *ngIf="apellido1.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="apellido1.errors.required">Apellido1 is required</div>
-        <div *ngIf="apellido1.errors.minlength">
-          Apellido1 must be at least 5 characters long.
-        </div>
-        <div *ngIf="apellido1.errors.maxlength">
-          Apellido1 can be max 25 characters long.
-        </div>
-      </div>
-    </div>
-    <div>
-      <label for="apellido2">Apellido2: </label>
-      <input type="text" [formControl]="apellido2" />
-      <div
-        *ngIf="apellido2.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="apellido2.errors.minlength">
-          Apellido2 must be at least 5 characters long.
-        </div>
-        <div *ngIf="apellido2.errors.maxlength">
-          Apellido2 can be max 25 characters long.
-        </div>
-      </div>
-    </div>
-    <div>
-      <label for="servicios">Servicios: </label>
-      <input type="text" [formControl]="servicios" />
-      <div
-        *ngIf="servicios.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      ></div>
-    </div>
-
-    <div>
-      <label for="tel1">Teléfono 1: </label>
-      <input type="text" [formControl]="tel1" />
-      <div
-        *ngIf="tel1.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="tel1.errors.required">tel1 is required</div>
-        <div *ngIf="tel1.errors.minlength">
-          tel1 must be at least 9 characters long.
-        </div>
-        <div *ngIf="tel1.errors.maxlength">
-          tel1 can be max 9 characters long.
-        </div>
-      </div>
-    </div>
-    <div>
-      <label for="tel2">Teléfono 2: </label>
-      <input type="text" [formControl]="tel2" />
-      <div
-        *ngIf="tel2.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="tel2.errors.required">tel2 is required</div>
-        <div *ngIf="tel2.errors.minlength">
-          tel2 must be at least 9 characters long.
-        </div>
-        <div *ngIf="tel2.errors.maxlength">
-          tel2 can be max 9 characters long.
-        </div>
-      </div>
+      <label for="servicios">Choose servicios:</label>
+      <select [formControl]="servicio">
+        <option *ngFor="let servicio of serviciosList" [ngValue]="servicio._id">
+          {{ servicio.nombre }}
+        </option>
+      </select>
     </div>
 
     <button type="submit">Crear Cita</button>

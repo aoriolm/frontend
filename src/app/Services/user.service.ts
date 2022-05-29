@@ -25,4 +25,9 @@ export class UserService {
   updateUser(userId: string, user: UserDTO): Observable<UserDTO> {
     return this.http.put<UserDTO>(this.urlApi + 'users/' + userId, user);
   }
+
+  getUsers(): Observable<UserDTO[]> {
+    return this.http.get<UserDTO[]>(this.urlApi + 'users/');
+    //.pipe(catchError(this.sharedService.handleError));
+  }
 }
