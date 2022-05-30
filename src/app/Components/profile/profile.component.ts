@@ -121,7 +121,7 @@ export class ProfileComponent implements OnInit {
     // load user data
     const userId = this.localStorageService.get('id');
     if (userId) {
-      this.userService.getUSerById(userId).subscribe(
+      this.userService.getUserById(userId).subscribe(
         (userData: UserDTO) => {
           this.email.setValue(userData.email);
           this.nombre.setValue(userData.nombre);

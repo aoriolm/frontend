@@ -17,7 +17,7 @@ export class UserService {
     //.pipe(catchError(this.sharedService.handleError));
   }
 
-  getUSerById(userId: string): Observable<UserDTO> {
+  getUserById(userId: string): Observable<UserDTO> {
     return this.http.get<UserDTO>(this.urlApi + 'users/' + userId);
     //.pipe(catchError(this.sharedService.handleError));
   }

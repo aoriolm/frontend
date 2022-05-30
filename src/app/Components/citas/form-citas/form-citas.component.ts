@@ -25,7 +25,7 @@ export class FormCitasComponent implements OnInit {
   newEvent: EventDTO;
 
   start: FormControl;
-  user: FormControl;
+  user_id: FormControl;
   servicio: FormControl;
 
   citaForm: FormGroup;
@@ -33,6 +33,7 @@ export class FormCitasComponent implements OnInit {
 
   userList: UserDTO[];
   serviciosList: ServicioDTO[];
+  servicioDevuelto: ServicioDTO;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -51,7 +52,7 @@ export class FormCitasComponent implements OnInit {
       [Validators.required]
     );
 
-    this.user = new FormControl([Validators.required]);
+    this.user_id = new FormControl([Validators.required]);
 
     this.servicio = new FormControl([Validators.required]);
 
@@ -60,7 +61,7 @@ export class FormCitasComponent implements OnInit {
 
     this.citaForm = this.formBuilder.group({
       start: this.start,
-      user: this.user,
+      user_id: this.user_id,
       servicio: this.servicio,
     });
   }
@@ -89,26 +90,42 @@ export class FormCitasComponent implements OnInit {
     }
     this.isValidForm = true;
     this.signupCita = this.citaForm.value;
-    console.log(this.signupCita);
-    this.newEvent.start = this.signupCita.start;
-    console.log(this.newEvent.start);
-    console.log(this.signupCita.servicio);
-    let servicioCargado = this.servicioService
+    console.log('Esta es la cita: ', this.signupCita);
+    console.log(
+      'Este es el id del usuario en la cita ',
+      this.signupCita.user_id
+    );
+    //Leo los datos del ususario y servicio escogidos en el form
+    this.servicioService
       .getServicioById(this.signupCita.servicio)
-      .subscribe();
-    console.log(servicioCargado);
-    /*this.newEvent.end = new Date(
-      new Date(this.signupCita.start).getTime() +
-        this.signupCita.duracion * 60000
-    );*/
-    console.log(this.newEvent.end);
-    this.newEvent.title = this.signupCita.servicio; //hacer una funcion para concatenar todos los servicios
-    console.log(this.newEvent.title);
+      .subscribe((servicioLeido: ServicioDTO) => {
+        console.log('El servicio leído es: ', servicioLeido);
+        this.userService
+          .getUserById(this.signupCita.user_id)
+          .subscribe((userLeido: UserDTO) => {
+            console.log('El usuario leído es: ', userLeido);
+            //Ahora que tenemos estos datos guardamos la cita y el evento en la BD
+            this.citaService.crearCita(this.signupCita).subscribe();
+            this.newEvent.start = this.signupCita.start;
+            this.newEvent.end = new Date(
+              new Date(this.signupCita.start).getTime() +
+                servicioLeido.duracion * 60000
+            );
+            this.newEvent.title =
+              servicioLeido.nombre +
+              ' / ' +
+              userLeido.nombre +
+              ' ' +
+              userLeido.apellido1;
+            console.log('El fin del evento es: ', this.newEvent.end);
+            //Leer la cita que acabo de guardar para obtener el id
+            //añadir el id de la cita al campo url del evento
+            // modificar eventDTO
+            this.citaService.crearEvent(this.newEvent).subscribe();
+          });
+      });
 
-    this.citaService.crearCita(this.signupCita).subscribe();
-    this.citaService.crearEvent(this.newEvent).subscribe();
-
-    //this.citaForm.reset();
-    this.router.navigateByUrl('');
+    this.citaForm.reset();
+    //this.router.navigateByUrl('');
   }
 }

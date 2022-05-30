@@ -14,7 +14,7 @@
 
     <div>
       <label for="users">Choose users:</label>
-      <select [formControl]="user">
+      <select [formControl]="user_id">
         <option *ngFor="let user of userList" [ngValue]="user._id">
           {{ user.nombre + " " + user.apellido1 + " / " + user.email }}
         </option>
