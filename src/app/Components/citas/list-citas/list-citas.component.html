@@ -1,0 +1,23 @@
+<h2>Gestionar citas</h2>
+<button (click)="createCita()">ADD</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>FECHA Y HORA DE INICIO</th>
+      <th>CLIENTE</th>
+      <th>SERVICIO</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cita of citas">
+      <td>{{ cita.start }}</td>
+      <td>{{ cita.user_id }}</td>
+      <td>{{ cita.servicio }}</td>
+      <td>
+        <button (click)="updateCita(cita._id)">UPDATE</button>
+        <button (click)="deleteCita()">DELETE</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

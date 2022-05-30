@@ -22,11 +22,19 @@ export class CitaService {
     return this.http.get<CitaDTO[]>(this.urlApi + 'citas');
   }
 
+  getCitabyId(cita: string): Observable<CitaDTO> {
+    return this.http.get<CitaDTO>(this.urlApi + 'citas/' + cita);
+  }
+
   crearEvent(event: EventDTO): Observable<EventDTO> {
     return this.http.post<EventDTO>(this.urlApi + 'events', event);
   }
 
   obtenerEvents(): Observable<EventDTO[]> {
     return this.http.get<EventDTO[]>(this.urlApi + 'events');
+  }
+
+  obtenerEventByStart(start: Date): Observable<EventDTO> {
+    return this.http.get<EventDTO>(this.urlApi + 'events/' + start);
   }
 }

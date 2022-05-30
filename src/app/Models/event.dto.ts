@@ -1,5 +1,5 @@
 export class EventDTO {
-  id?: string;
+  _id?: string;
   start: Date;
   end: Date;
   title: string;

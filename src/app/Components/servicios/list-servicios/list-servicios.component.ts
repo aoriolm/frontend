@@ -29,4 +29,12 @@ export class ListServiciosComponent {
   createServicio(): void {
     this.router.navigateByUrl('form-servicios');
   }
+
+  updateServicio(): void {
+    this.router.navigateByUrl('form-citas');
+  }
+
+  deleteServicio(): void {
+    this.router.navigateByUrl('form-citas');
+  }
 }

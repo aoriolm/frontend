@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormCitasComponent } from './Components/citas/form-citas/form-citas.component';
+import { ListCitasComponent } from './Components/citas/list-citas/list-citas.component';
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { HomeComponent } from './Components/home/home.component';
@@ -31,8 +32,12 @@ const routes: Routes = [
     component: ProfileComponent,
   },
   {
-    path: 'form-citas',
+    path: 'citas/:id',
     component: FormCitasComponent,
+  },
+  {
+    path: 'citas',
+    component: ListCitasComponent,
   },
   {
     path: 'home',
@@ -43,11 +48,11 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: 'form-servicios',
+    path: 'servicios/:id',
     component: FormServiciosComponent,
   },
   {
-    path: 'list-servicios',
+    path: 'servicios',
     component: ListServiciosComponent,
   },
 ];

@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CitaDTO } from 'src/app/Models/cita.dto';
 import { EventDTO } from 'src/app/Models/event.dto';
 import { ServicioDTO } from 'src/app/Models/servicio.dto';
@@ -35,17 +35,22 @@ export class FormCitasComponent implements OnInit {
   serviciosList: ServicioDTO[];
   servicioDevuelto: ServicioDTO;
 
+  private citaId: string | null;
+
   constructor(
     private formBuilder: FormBuilder,
     private citaService: CitaService,
     private userService: UserService,
     private servicioService: ServicioService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
-    this.signupCita = new CitaDTO(new Date(), '', '');
+    this.signupCita = new CitaDTO(new Date(), '', '', '');
 
     this.newEvent = new EventDTO(new Date(), new Date(), '');
     this.isValidForm = null;
+
+    this.signupCita._id = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.start = new FormControl(
       formatDate(this.signupCita.start, 'yyyy-MM-dd', 'en'),
@@ -63,10 +68,30 @@ export class FormCitasComponent implements OnInit {
       start: this.start,
       user_id: this.user_id,
       servicio: this.servicio,
+      //idEvento : this.idEvento,
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // update
+    if (this.citaId) {
+      //this.isUpdateMode = true;
+      this.citaService.getCitabyId(this.citaId).subscribe((cita) => {
+        this.start.setValue(cita.start);
+
+        this.user_id.setValue(cita.user_id);
+
+        //this.idEvento.setValue(cita.idEvento);
+
+        this.citaForm = this.formBuilder.group({
+          start: this.start,
+          user_id: this.user_id,
+          servicio: this.servicio,
+          //idEvento: this.idEvento,
+        });
+      });
+    }
+  }
 
   loadUsers(): void {
     this.userService.getUsers().subscribe((users) => {
@@ -118,10 +143,29 @@ export class FormCitasComponent implements OnInit {
               ' ' +
               userLeido.apellido1;
             console.log('El fin del evento es: ', this.newEvent.end);
-            //Leer la cita que acabo de guardar para obtener el id
-            //añadir el id de la cita al campo url del evento
-            // modificar eventDTO
-            this.citaService.crearEvent(this.newEvent).subscribe();
+            //Leer el evento que acabo de guardar para obtener el id
+            //añadir el id del evento a la cita
+
+            this.citaService
+              .crearEvent(this.newEvent)
+              .subscribe((eventoCreado: EventDTO) => {
+                console.log(
+                  'Esto es lo que devuelve crear evento: ',
+                  eventoCreado
+                );
+                //añadimos el id del evento a la cita
+                this.signupCita.idEvento = eventoCreado._id;
+                console.log(
+                  'Esta es la cita que se va a crear: ',
+                  this.signupCita
+                );
+                //Creamos la cita con el id del evento
+                this.citaService
+                  .crearCita(this.signupCita)
+                  .subscribe((CitaCreada: CitaDTO) => {
+                    console.log('Esta es la cita creada: ', CitaCreada);
+                  });
+              });
           });
       });
 
