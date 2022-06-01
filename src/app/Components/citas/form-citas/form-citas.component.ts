@@ -27,9 +27,11 @@ export class FormCitasComponent implements OnInit {
   start: FormControl;
   user_id: FormControl;
   servicio: FormControl;
+  idEvento: FormControl;
 
   citaForm: FormGroup;
   isValidForm: boolean | null;
+  isUpdate: boolean | null;
 
   userList: UserDTO[];
   serviciosList: ServicioDTO[];
@@ -49,17 +51,20 @@ export class FormCitasComponent implements OnInit {
 
     this.newEvent = new EventDTO(new Date(), new Date(), '');
     this.isValidForm = null;
+    this.isUpdate = null;
 
-    this.signupCita._id = this.activatedRoute.snapshot.paramMap.get('id');
+    this.citaId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.start = new FormControl(
-      formatDate(this.signupCita.start, 'yyyy-MM-dd', 'en'),
+      formatDate(this.signupCita.start, 'yyyy-MM-ddThh:mm', 'en'),
       [Validators.required]
     );
 
     this.user_id = new FormControl([Validators.required]);
 
     this.servicio = new FormControl([Validators.required]);
+
+    this.idEvento = new FormControl([Validators.required]);
 
     this.loadUsers();
     this.loadServicios();
@@ -68,26 +73,30 @@ export class FormCitasComponent implements OnInit {
       start: this.start,
       user_id: this.user_id,
       servicio: this.servicio,
-      //idEvento : this.idEvento,
+      idEvento: this.idEvento,
     });
   }
 
   ngOnInit(): void {
-    // update
+    // update. si recibimos un parámetro es que es un update. Rellenamos los campos
+    // del formulario con los datos de la cita
     if (this.citaId) {
-      //this.isUpdateMode = true;
+      this.isUpdate = true;
+      console.log('La cita que queremos cargar es: ', this.citaId);
       this.citaService.getCitabyId(this.citaId).subscribe((cita) => {
-        this.start.setValue(cita.start);
-
+        console.log('La cita que se ha leido es: ', cita);
+        this.start.setValue(
+          new Date(cita.start).toISOString().replace('Z', '')
+        );
         this.user_id.setValue(cita.user_id);
-
-        //this.idEvento.setValue(cita.idEvento);
+        this.servicio.setValue(cita.servicio);
+        this.idEvento.setValue(cita.idEvento);
 
         this.citaForm = this.formBuilder.group({
           start: this.start,
           user_id: this.user_id,
           servicio: this.servicio,
-          //idEvento: this.idEvento,
+          idEvento: this.idEvento,
         });
       });
     }
@@ -107,19 +116,9 @@ export class FormCitasComponent implements OnInit {
   }
 
   crearCita(): void {
-    this.isValidForm = false;
-    console.log('Se ha llamado crearCita, ahora hay que llamar al backend');
-
-    if (this.citaForm.invalid) {
-      return;
-    }
-    this.isValidForm = true;
     this.signupCita = this.citaForm.value;
     console.log('Esta es la cita: ', this.signupCita);
-    console.log(
-      'Este es el id del usuario en la cita ',
-      this.signupCita.user_id
-    );
+    console.log('Este es la fecha de la cita: ', this.signupCita.start);
     //Leo los datos del ususario y servicio escogidos en el form
     this.servicioService
       .getServicioById(this.signupCita.servicio)
@@ -130,7 +129,7 @@ export class FormCitasComponent implements OnInit {
           .subscribe((userLeido: UserDTO) => {
             console.log('El usuario leído es: ', userLeido);
             //Ahora que tenemos estos datos guardamos la cita y el evento en la BD
-            this.citaService.crearCita(this.signupCita).subscribe();
+            //this.citaService.crearCita(this.signupCita).subscribe();
             this.newEvent.start = this.signupCita.start;
             this.newEvent.end = new Date(
               new Date(this.signupCita.start).getTime() +
@@ -171,5 +170,69 @@ export class FormCitasComponent implements OnInit {
 
     this.citaForm.reset();
     //this.router.navigateByUrl('');
+  }
+
+  editarCita(): void {
+    console.log('UPDATE citaid: ', this.citaId);
+    console.log('UPDATE valor de citaForm: ', this.citaForm.value);
+    this.servicioService
+      .getServicioById(this.citaForm.value.servicio)
+      .subscribe((servicioLeido: ServicioDTO) => {
+        console.log('UPDATE El servicio leído es: ', servicioLeido);
+        this.userService
+          .getUserById(this.citaForm.value.user_id)
+          .subscribe((userLeido: UserDTO) => {
+            console.log('UPDATE El usuario leído es: ', userLeido);
+            //Ahora que tenemos estos datos guardamos la cita y el evento en la BD
+            //this.citaService.crearCita(this.signupCita).subscribe();
+            this.newEvent.start = this.citaForm.value.start;
+            this.newEvent.end = new Date(
+              new Date(this.citaForm.value.start).getTime() +
+                servicioLeido.duracion * 60000
+            );
+            this.newEvent.title =
+              servicioLeido.nombre +
+              ' / ' +
+              userLeido.nombre +
+              ' ' +
+              userLeido.apellido1;
+            console.log('UPDATE Datos del evento a guardar: ', this.newEvent);
+            //Leer el evento que acabo de guardar para obtener el id
+            //añadir el id del evento a la cita
+            console.log(
+              'UPDATE id del evento a modificar: ',
+              this.citaForm.value.idEvento
+            );
+            this.citaService
+              .updateEvent(this.citaForm.value.idEvento, this.newEvent)
+              .subscribe((eventoModificado: EventDTO) => {
+                console.log(
+                  'UPDATE Esto es lo que devuelve updateEvent: ',
+                  eventoModificado
+                );
+                console.log(
+                  'UPDATE Esta es la cita que se va a crear: ',
+                  this.citaForm.value
+                );
+
+                this.citaService
+                  .updateCita(this.citaForm.value._id, this.citaForm.value)
+                  .subscribe();
+              });
+          });
+      });
+  }
+
+  guardarCita(): void {
+    if (this.citaForm.invalid) {
+      return;
+    }
+
+    if (this.isUpdate) {
+      console.log('Se va a llamar a editarCita');
+      this.editarCita();
+    } else {
+      this.crearCita();
+    }
   }
 }

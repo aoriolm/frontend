@@ -32,7 +32,7 @@ const routes: Routes = [
     component: ProfileComponent,
   },
   {
-    path: 'citas/:id',
+    path: 'cita/:id',
     component: FormCitasComponent,
   },
   {
@@ -48,7 +48,7 @@ const routes: Routes = [
     component: DashboardComponent,
   },
   {
-    path: 'servicios/:id',
+    path: 'servicio/:id',
     component: FormServiciosComponent,
   },
   {

@@ -1,6 +1,6 @@
 <div>
   <h1>Crear una cita</h1>
-  <form [formGroup]="citaForm" (ngSubmit)="crearCita()">
+  <form [formGroup]="citaForm" (ngSubmit)="guardarCita()">
     <div>
       <label for="start">Fecha y hora: </label>
       <input type="datetime-local" [formControl]="start" />
@@ -30,6 +30,6 @@
       </select>
     </div>
 
-    <button type="submit">Crear Cita</button>
+    <button type="submit">Guardar Cita</button>
   </form>
 </div>

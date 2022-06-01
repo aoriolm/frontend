@@ -26,6 +26,10 @@ export class CitaService {
     return this.http.get<CitaDTO>(this.urlApi + 'citas/' + cita);
   }
 
+  updateCita(idCita: string, cita: CitaDTO): Observable<CitaDTO> {
+    return this.http.put<CitaDTO>(this.urlApi + 'citas/' + idCita, cita);
+  }
+
   crearEvent(event: EventDTO): Observable<EventDTO> {
     return this.http.post<EventDTO>(this.urlApi + 'events', event);
   }
@@ -36,5 +40,9 @@ export class CitaService {
 
   obtenerEventByStart(start: Date): Observable<EventDTO> {
     return this.http.get<EventDTO>(this.urlApi + 'events/' + start);
+  }
+
+  updateEvent(idEvent: string, event: EventDTO): Observable<EventDTO> {
+    return this.http.put<EventDTO>(this.urlApi + 'events/' + idEvent, event);
   }
 }

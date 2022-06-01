@@ -32,15 +32,15 @@ export class ListCitasComponent implements OnInit {
   }
 
   createCita(): void {
-    this.router.navigateByUrl('form-citas');
+    this.router.navigateByUrl('cita/');
   }
 
   updateCita(citaId: string): void {
-    this.router.navigateByUrl('citas/' + citaId);
+    this.router.navigateByUrl('cita/' + citaId);
     //this.router.navigateByUrl('/user/category/' + categoryId);
   }
 
   deleteCita(): void {
-    this.router.navigateByUrl('form-citas');
+    this.router.navigateByUrl('cita/');
   }
 }
