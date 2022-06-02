@@ -16,7 +16,9 @@
       <td>{{ cita.servicio }}</td>
       <td>
         <button (click)="updateCita(cita._id)">UPDATE</button>
-        <button (click)="deleteCita()">DELETE</button>
+        <button (click)="deleteCita(cita._id, cita.start, cita.idEvento)">
+          DELETE
+        </button>
       </td>
     </tr>
   </tbody>

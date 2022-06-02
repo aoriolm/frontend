@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ServicioDTO } from '../Models/servicio.dto';
 
+interface deleteRes {
+  deletedCount: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -23,5 +27,19 @@ export class ServicioService {
 
   getServicioById(servicioId: string): Observable<ServicioDTO> {
     return this.http.get<ServicioDTO>(this.urlApi + 'servicios/' + servicioId);
+  }
+
+  updateServicio(
+    idServicio: string,
+    servicio: ServicioDTO
+  ): Observable<ServicioDTO> {
+    return this.http.put<ServicioDTO>(
+      this.urlApi + 'servicios/' + idServicio,
+      servicio
+    );
+  }
+
+  deleteServicio(servicio: string): Observable<deleteRes> {
+    return this.http.delete<deleteRes>(this.urlApi + 'servicios/' + servicio);
   }
 }

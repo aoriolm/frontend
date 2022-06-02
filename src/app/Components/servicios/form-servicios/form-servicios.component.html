@@ -1,6 +1,6 @@
 <div>
   <h1>Crear un servicio</h1>
-  <form [formGroup]="servicioForm" (ngSubmit)="crearServicio()">
+  <form [formGroup]="servicioForm" (ngSubmit)="guardarServicio()">
     <div>
       <label for="nombre">Nombre: </label>
       <input type="text" [formControl]="nombre" />
@@ -17,6 +17,7 @@
         </div>
       </div>
     </div>
+
     <div>
       <label for="descripcion">Descripcion: </label>
       <input type="text" [formControl]="descripcion" />
@@ -33,16 +34,6 @@
         </div>
       </div>
     </div>
-    <div>
-      <label for="duracion">Duracion: </label>
-      <input type="text" [formControl]="duracion" />
-      <div
-        *ngIf="duracion.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="duracion.errors.required">duracion is required</div>
-      </div>
-    </div>
 
     <div>
       <label for="precio">Precio: </label>
@@ -55,6 +46,17 @@
       </div>
     </div>
 
-    <button type="submit">Crear Servicio</button>
+    <div>
+      <label for="duracion">Duracion: </label>
+      <input type="text" [formControl]="duracion" />
+      <div
+        *ngIf="duracion.errors && isValidForm != null && !isValidForm"
+        [ngClass]="'error'"
+      >
+        <div *ngIf="duracion.errors.required">duracion is required</div>
+      </div>
+    </div>
+
+    <button type="submit">Guardar Servicio</button>
   </form>
 </div>

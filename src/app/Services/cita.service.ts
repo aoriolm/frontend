@@ -4,6 +4,10 @@ import { Observable } from 'rxjs';
 import { CitaDTO } from '../Models/cita.dto';
 import { EventDTO } from '../Models/event.dto';
 
+interface deleteRes {
+  deletedCount: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -30,6 +34,10 @@ export class CitaService {
     return this.http.put<CitaDTO>(this.urlApi + 'citas/' + idCita, cita);
   }
 
+  deleteCita(cita: string): Observable<deleteRes> {
+    return this.http.delete<deleteRes>(this.urlApi + 'citas/' + cita);
+  }
+
   crearEvent(event: EventDTO): Observable<EventDTO> {
     return this.http.post<EventDTO>(this.urlApi + 'events', event);
   }
@@ -44,5 +52,9 @@ export class CitaService {
 
   updateEvent(idEvent: string, event: EventDTO): Observable<EventDTO> {
     return this.http.put<EventDTO>(this.urlApi + 'events/' + idEvent, event);
+  }
+
+  deleteEvent(eventId: string): Observable<deleteRes> {
+    return this.http.delete<deleteRes>(this.urlApi + 'events/' + eventId);
   }
 }

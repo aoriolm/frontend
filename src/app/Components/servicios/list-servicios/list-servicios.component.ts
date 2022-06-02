@@ -11,6 +11,7 @@ import { ServicioService } from 'src/app/Services/servicio.service';
 })
 export class ListServiciosComponent {
   servicios!: ServicioDTO[];
+
   constructor(
     private router: Router,
     private servicioService: ServicioService,
@@ -27,14 +28,28 @@ export class ListServiciosComponent {
   }
 
   createServicio(): void {
-    this.router.navigateByUrl('form-servicios');
+    this.router.navigateByUrl('servicio/');
   }
 
-  updateServicio(): void {
-    this.router.navigateByUrl('form-citas');
+  updateServicio(id: string): void {
+    this.router.navigateByUrl('servicio/' + id);
   }
 
-  deleteServicio(): void {
-    this.router.navigateByUrl('form-citas');
+  deleteServicio(servicioId: string, servicioNombre: string): void {
+    let result = confirm(
+      'Desea eliminar el servicio con el nombre: ' + servicioNombre + ' .'
+    );
+    if (result) {
+      this.servicioService.deleteServicio(servicioId).subscribe((response) => {
+        console.log('Lo que devuelve eliminar evento: ', response);
+        if (response.deletedCount > 0) {
+          this.loadServicios();
+        } else {
+          console.log('No se ha podido eliminar el servicio');
+          return;
+        }
+      });
+    }
+    //this.router.navigateByUrl('form-citas');
   }
 }

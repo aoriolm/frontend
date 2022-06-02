@@ -105,7 +105,6 @@ export class FormCitasComponent implements OnInit {
   loadUsers(): void {
     this.userService.getUsers().subscribe((users) => {
       this.userList = users;
-      console.log(users);
     });
   }
 
@@ -174,7 +173,10 @@ export class FormCitasComponent implements OnInit {
 
   editarCita(): void {
     console.log('UPDATE citaid: ', this.citaId);
-    console.log('UPDATE valor de citaForm: ', this.citaForm.value);
+    console.log(
+      'UPDATE valor de citaForm al entrar en editarCita: ',
+      this.citaForm.value
+    );
     this.servicioService
       .getServicioById(this.citaForm.value.servicio)
       .subscribe((servicioLeido: ServicioDTO) => {
@@ -214,13 +216,22 @@ export class FormCitasComponent implements OnInit {
                   'UPDATE Esta es la cita que se va a crear: ',
                   this.citaForm.value
                 );
-
+                console.log(
+                  'UPDATE valor de citaForm para cambiar: ',
+                  this.citaForm.value
+                );
                 this.citaService
-                  .updateCita(this.citaForm.value._id, this.citaForm.value)
-                  .subscribe();
+                  .updateCita(this.citaId, this.citaForm.value)
+                  .subscribe((citaModificada: CitaDTO) => {
+                    console.log(
+                      'Esta es la cita Modificada en la BD: ',
+                      citaModificada
+                    );
+                  });
               });
           });
       });
+    this.router.navigateByUrl('citas/');
   }
 
   guardarCita(): void {
@@ -232,6 +243,7 @@ export class FormCitasComponent implements OnInit {
       console.log('Se va a llamar a editarCita');
       this.editarCita();
     } else {
+      console.log('Se va a llamar a crearCita');
       this.crearCita();
     }
   }
