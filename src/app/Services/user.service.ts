@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserDTO } from '../Models/user.dto';
 
+interface deleteRes {
+  deletedCount: number;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -29,5 +33,8 @@ export class UserService {
   getUsers(): Observable<UserDTO[]> {
     return this.http.get<UserDTO[]>(this.urlApi + 'users/');
     //.pipe(catchError(this.sharedService.handleError));
+  }
+  deleteUser(userId: string): Observable<deleteRes> {
+    return this.http.delete<deleteRes>(this.urlApi + 'users/' + userId);
   }
 }

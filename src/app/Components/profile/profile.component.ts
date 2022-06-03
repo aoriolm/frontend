@@ -6,7 +6,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserDTO } from 'src/app/Models/user.dto';
 import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -30,6 +30,8 @@ export class ProfileComponent implements OnInit {
   genero: FormControl;
   rol: FormControl;
 
+  userId: string | null;
+
   updateForm: FormGroup;
   isValidForm: boolean | null;
 
@@ -37,7 +39,8 @@ export class ProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private localStorageService: LocalStorageService,
-    private router: Router
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {
     this.updateUser = new UserDTO(
       '',
@@ -52,6 +55,8 @@ export class ProfileComponent implements OnInit {
       ''
     );
     this.isValidForm = null;
+
+    this.userId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.email = new FormControl(this.updateUser.email, [
       Validators.required,
@@ -118,47 +123,48 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     let responseError: any;
 
-    // load user data
-    const userId = this.localStorageService.get('id');
-    if (userId) {
-      this.userService.getUserById(userId).subscribe(
-        (userData: UserDTO) => {
-          this.email.setValue(userData.email);
-          this.nombre.setValue(userData.nombre);
-          this.apellido1.setValue(userData.apellido1);
-          this.apellido2.setValue(userData.apellido2);
-          this.nacimiento.setValue(
-            formatDate(userData.nacimiento, 'yyyy-MM-dd', 'en')
-          );
-          this.tel1.setValue(userData.tel1);
-          this.tel2.setValue(userData.tel2);
-          this.genero.setValue(userData.genero);
-          this.rol.setValue(userData.rol);
+    console.log('El id del usuario es: ', this.userId);
+    if (!this.userId) {
+      this.userId = this.localStorageService.get('id');
+      console.log('Se carga el id del localstorage: ', this.userId);
+    }
+    this.userService.getUserById(this.userId).subscribe(
+      (userData: UserDTO) => {
+        this.email.setValue(userData.email);
+        this.nombre.setValue(userData.nombre);
+        this.apellido1.setValue(userData.apellido1);
+        this.apellido2.setValue(userData.apellido2);
+        this.nacimiento.setValue(
+          formatDate(userData.nacimiento, 'yyyy-MM-dd', 'en')
+        );
+        this.tel1.setValue(userData.tel1);
+        this.tel2.setValue(userData.tel2);
+        this.genero.setValue(userData.genero);
+        this.rol.setValue(userData.rol);
 
-          this.updateForm = this.formBuilder.group({
-            email: this.email,
-            password: this.password,
-            nombre: this.nombre,
-            apellido1: this.apellido1,
-            apellido2: this.apellido2,
-            nacimiento: this.nacimiento,
-            tel1: this.tel1,
-            tel2: this.tel2,
-            genero: this.genero,
-            rol: this.rol,
-          });
-        } /*,
+        this.updateForm = this.formBuilder.group({
+          email: this.email,
+          password: this.password,
+          nombre: this.nombre,
+          apellido1: this.apellido1,
+          apellido2: this.apellido2,
+          nacimiento: this.nacimiento,
+          tel1: this.tel1,
+          tel2: this.tel2,
+          genero: this.genero,
+          rol: this.rol,
+        });
+      } /*,
         (error: HttpErrorResponse) => {
           responseError = error.error;
           this.sharedService.errorLog(errorResponse);
         }*/
-      );
-    }
+    );
   }
 
   update(): void {
     this.isValidForm = false;
-    const userId = this.localStorageService.get('id');
+    ///const userId = this.localStorageService.get('id');
     console.log('Se ha llamado update, ahora hay que llamar al backend');
 
     if (this.updateForm.invalid) {
@@ -168,8 +174,8 @@ export class ProfileComponent implements OnInit {
     this.updateUser = this.updateForm.value;
     console.log(this.updateUser);
 
-    if (userId) {
-      this.userService.updateUser(userId, this.updateUser).subscribe();
+    if (this.userId) {
+      this.userService.updateUser(this.userId, this.updateUser).subscribe();
       this.updateForm.reset();
       this.router.navigateByUrl('');
     } else {

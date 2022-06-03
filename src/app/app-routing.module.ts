@@ -5,6 +5,7 @@ import { ListCitasComponent } from './Components/citas/list-citas/list-citas.com
 import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { HomeComponent } from './Components/home/home.component';
+import { ListSignupComponent } from './Components/list-signup/list-signup.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { FormServiciosComponent } from './Components/servicios/form-servicios/form-servicios.component';
@@ -24,8 +25,16 @@ const routes: Routes = [
     component: SignupComponent,
   },
   {
+    path: 'usuarios',
+    component: ListSignupComponent,
+  },
+  {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+    path: 'profile/:id',
+    component: ProfileComponent,
   },
   {
     path: 'profile',

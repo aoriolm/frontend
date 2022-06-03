@@ -19,6 +19,7 @@ import { ProfileComponent } from './Components/profile/profile.component';
 import { FormServiciosComponent } from './Components/servicios/form-servicios/form-servicios.component';
 import { ListServiciosComponent } from './Components/servicios/list-servicios/list-servicios.component';
 import { SignupComponent } from './Components/signup/signup.component';
+import { ListSignupComponent } from './Components/list-signup/list-signup.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -40,6 +41,7 @@ FullCalendarModule.registerPlugins([
     ListServiciosComponent,
     CalendarComponent,
     ListCitasComponent,
+    ListSignupComponent,
   ],
   imports: [
     BrowserModule,

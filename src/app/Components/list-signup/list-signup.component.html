@@ -1,0 +1,37 @@
+<h2>Gestionar clientes</h2>
+<button (click)="createCliente()">ADD</button>
+
+<table>
+  <thead>
+    <tr>
+      <th>E-MAIL</th>
+      <th>NOMBRE</th>
+      <th>APELLIDO 1</th>
+      <th>APELLIDO 2</th>
+      <th>NACIMIENTO</th>
+      <th>TELEFONO 1</th>
+      <th>TELEFONO 2</th>
+      <th>GENERO</th>
+      <th>ROL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cliente of clientes">
+      <td>{{ cliente.email }}</td>
+      <td>{{ cliente.nombre }}</td>
+      <td>{{ cliente.apellido1 }}</td>
+      <td>{{ cliente.apellido2 }}</td>
+      <td>{{ cliente.nacimiento }}</td>
+      <td>{{ cliente.tel1 }}</td>
+      <td>{{ cliente.tel2 }}</td>
+      <td>{{ cliente.genero }}</td>
+      <td>{{ cliente.rol }}</td>
+      <td>
+        <button (click)="updateCliente(cliente._id)">UPDATE</button>
+        <button (click)="deleteCliente(cliente._id, cliente.nombre)">
+          DELETE
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
