@@ -21,7 +21,7 @@
       <td>{{ cliente.nombre }}</td>
       <td>{{ cliente.apellido1 }}</td>
       <td>{{ cliente.apellido2 }}</td>
-      <td>{{ cliente.nacimiento }}</td>
+      <td>{{ cliente.nacimiento | date: "dd-MM-yyyy" }}</td>
       <td>{{ cliente.tel1 }}</td>
       <td>{{ cliente.tel2 }}</td>
       <td>{{ cliente.genero }}</td>

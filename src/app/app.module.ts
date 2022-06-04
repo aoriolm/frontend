@@ -20,6 +20,8 @@ import { FormServiciosComponent } from './Components/servicios/form-servicios/fo
 import { ListServiciosComponent } from './Components/servicios/list-servicios/list-servicios.component';
 import { SignupComponent } from './Components/signup/signup.component';
 import { ListSignupComponent } from './Components/list-signup/list-signup.component';
+import { MostrarUsuarioPipe } from './Pipes/mostrar-usuario.pipe';
+import { MostrarServicioPipe } from './Pipes/mostrar-servicio.pipe';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -42,6 +44,8 @@ FullCalendarModule.registerPlugins([
     CalendarComponent,
     ListCitasComponent,
     ListSignupComponent,
+    MostrarUsuarioPipe,
+    MostrarServicioPipe,
   ],
   imports: [
     BrowserModule,

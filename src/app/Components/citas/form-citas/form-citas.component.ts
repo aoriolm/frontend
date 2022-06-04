@@ -56,7 +56,7 @@ export class FormCitasComponent implements OnInit {
     this.citaId = this.activatedRoute.snapshot.paramMap.get('id');
 
     this.start = new FormControl(
-      formatDate(this.signupCita.start, 'yyyy-MM-ddThh:mm', 'en'),
+      formatDate(this.signupCita.start, 'dd-MM-yyyyThh:mm', 'en'),
       [Validators.required]
     );
 
@@ -97,9 +97,11 @@ export class FormCitasComponent implements OnInit {
       console.log('La cita que queremos cargar es: ', this.citaId);
       this.citaService.getCitabyId(this.citaId).subscribe((cita) => {
         console.log('La cita que se ha leido es: ', cita);
+        console.log('La fecha leida es: ', cita.start);
         this.start.setValue(
           new Date(cita.start).toISOString().replace('Z', '')
         );
+        console.log('La fecha que se pasa al formulario: ', this.start);
         this.user_id.setValue(cita.user_id);
         this.servicio.setValue(cita.servicio);
         this.idEvento.setValue(cita.idEvento);

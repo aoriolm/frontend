@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CitaDTO } from 'src/app/Models/cita.dto';
+import { MostrarServicioPipe } from 'src/app/Pipes/mostrar-servicio.pipe';
+import { MostrarUsuarioPipe } from 'src/app/Pipes/mostrar-usuario.pipe';
 import { CitaService } from 'src/app/Services/cita.service';
 import { ServicioService } from 'src/app/Services/servicio.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -14,6 +16,9 @@ export class ListCitasComponent implements OnInit {
   citas!: CitaDTO[];
   citasTexto!: CitaDTO[];
   nombreMostrar: string;
+  mostrarUsuario: MostrarUsuarioPipe;
+  mostrarServicio: MostrarServicioPipe;
+  date: Date;
 
   constructor(
     private router: Router,
@@ -21,16 +26,20 @@ export class ListCitasComponent implements OnInit {
     private userService: UserService,
     private servicioService: ServicioService
   ) {
+    this.date = new Date();
+    this.date.setDate(this.date.getDate() - 1);
     this.loadCitas();
-    console.log('CitasTexto es: ', this.citasTexto);
-    console.log('Citas es: ', this.citas);
   }
 
   ngOnInit(): void {}
 
   loadCitas(): void {
     this.citaService.obtenerCitas().subscribe((citas) => {
-      this.citas = citas;
+      console.log('Start vale: ', new Date(citas[1].start).getTime());
+      console.log('La fecha a comparar es: ', this.date.getTime());
+      this.citas = citas.filter(
+        (cita) => new Date(cita.start).getTime() > this.date.getTime()
+      );
     });
   }
 

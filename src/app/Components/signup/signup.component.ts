@@ -78,7 +78,7 @@ export class SignupComponent implements OnInit {
     ]);
 
     this.nacimiento = new FormControl(
-      formatDate(this.signupUser.nacimiento, 'yyyy-MM-dd', 'en'),
+      formatDate(this.signupUser.nacimiento, 'dd-MM-yyyy', 'en'),
       [Validators.required]
     );
 
