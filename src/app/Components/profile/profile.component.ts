@@ -175,9 +175,12 @@ export class ProfileComponent implements OnInit {
     console.log(this.updateUser);
 
     if (this.userId) {
-      this.userService.updateUser(this.userId, this.updateUser).subscribe();
-      this.updateForm.reset();
-      this.router.navigateByUrl('');
+      this.userService
+        .updateUser(this.userId, this.updateUser)
+        .subscribe((data) => {
+          this.router.navigateByUrl('usuarios');
+        });
+      //this.updateForm.reset();
     } else {
       return;
     }

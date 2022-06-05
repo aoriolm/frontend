@@ -115,26 +115,58 @@
         </div>
       </div>
     </div>
-    <div>
-      <label for="genero">genero: </label>
-      <input type="text" [formControl]="genero" />
-      <div
-        *ngIf="genero.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="genero.errors.required">genero is required</div>
-      </div>
-    </div>
-    <div>
-      <label for="rol">rol: </label>
-      <input type="text" [formControl]="rol" />
-      <div
-        *ngIf="rol.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="rol.errors.required">rol is required</div>
-      </div>
-    </div>
+    <form>
+      <span>Genero:</span>
+      <label>
+        <input
+          type="radio"
+          name="genero"
+          value="mujer"
+          id="option1"
+          checked="checked"
+          [formControl]="genero"
+        />
+        <span>Mujer</span>
+      </label>
+      <label>
+        <!--<label for="option1">Mujer</label>-->
+        <input
+          type="radio"
+          name="genero"
+          value="hombre"
+          id="option2"
+          [formControl]="genero"
+        />
+        <span>Hombre</span>
+      </label>
+      <!--<label for="option2">Hombre</label>-->
+    </form>
+    <form>
+      <span>Rol:</span>
+      <label>
+        <input
+          type="radio"
+          name="radio2"
+          value="basic"
+          id="option3"
+          checked="checked"
+          [formControl]="rol"
+        />
+        <span>Básico</span>
+      </label>
+      <label>
+        <!--<label for="option1">Mujer</label>-->
+        <input
+          type="radio"
+          name="radio2"
+          value="admin"
+          id="option4"
+          [formControl]="rol"
+        />
+        <span>Administrador</span>
+      </label>
+      <!--<label for="option2">Hombre</label>-->
+    </form>
 
     <button type="submit">Signup</button>
   </form>

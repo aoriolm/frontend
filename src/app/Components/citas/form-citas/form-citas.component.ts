@@ -256,11 +256,11 @@ export class FormCitasComponent implements OnInit {
                       'Esta es la cita Modificada en la BD: ',
                       citaModificada
                     );
+                    this.router.navigateByUrl('citas');
                   });
               });
           });
       });
-    this.router.navigateByUrl('citas/');
   }
 
   guardarCita(): void {

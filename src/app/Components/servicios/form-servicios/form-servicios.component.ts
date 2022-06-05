@@ -102,7 +102,7 @@ export class FormServiciosComponent implements OnInit {
 
     this.servicioService.crearServicio(this.signupServicio).subscribe();
     this.servicioForm.reset();
-    this.router.navigateByUrl('dashboard');
+    //this.router.navigateByUrl('dashboard');
   }
 
   editarSercicio(): void {
@@ -114,9 +114,9 @@ export class FormServiciosComponent implements OnInit {
     this.servicioService
       .updateServicio(this.servicioId, this.servicioForm.value)
       .subscribe((servicioModificado: ServicioDTO) => {
+        this.router.navigateByUrl('servicios');
         console.log('UPDATE El servicio leído es: ', servicioModificado);
       });
-    this.router.navigateByUrl('servicios/');
   }
 
   guardarServicio(): void {
