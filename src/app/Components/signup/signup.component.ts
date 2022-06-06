@@ -44,42 +44,45 @@ export class SignupComponent implements OnInit {
       '',
       '',
       new Date(),
-      Number(null),
-      Number(null),
+      null,
+      null,
       '',
       ''
     );
     this.isValidForm = null;
+    this.signupUser.genero = 'mujer';
+    this.signupUser.rol = 'basic';
 
     this.email = new FormControl(this.signupUser.email, [
       Validators.required,
+      Validators.minLength(8),
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
     ]);
 
     this.password = new FormControl(this.signupUser.password, [
       Validators.minLength(8),
+      Validators.maxLength(16),
     ]);
 
     this.nombre = new FormControl(this.signupUser.nombre, [
       Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(25),
+      Validators.minLength(2),
+      Validators.maxLength(20),
     ]);
 
     this.apellido1 = new FormControl(this.signupUser.apellido1, [
       Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(25),
+      Validators.minLength(2),
+      Validators.maxLength(20),
     ]);
 
     this.apellido2 = new FormControl(this.signupUser.apellido2, [
-      Validators.minLength(5),
-      Validators.maxLength(25),
+      Validators.minLength(2),
+      Validators.maxLength(20),
     ]);
 
     this.nacimiento = new FormControl(
-      formatDate(this.signupUser.nacimiento, 'dd-MM-yyyy', 'en'),
-      [Validators.required]
+      formatDate(this.signupUser.nacimiento, 'dd-MM-yyyy', 'en')
     );
 
     this.tel1 = new FormControl(this.signupUser.tel1, [
@@ -93,11 +96,9 @@ export class SignupComponent implements OnInit {
       Validators.maxLength(9),
     ]);
 
-    this.genero = new FormControl(this.signupUser.genero, [
-      Validators.required,
-    ]);
+    this.genero = new FormControl(this.signupUser.genero);
 
-    this.rol = new FormControl(this.signupUser.rol, [Validators.required]);
+    this.rol = new FormControl(this.signupUser.rol);
 
     this.signupForm = this.formBuilder.group({
       email: this.email,
@@ -117,12 +118,14 @@ export class SignupComponent implements OnInit {
 
   signup(): void {
     this.isValidForm = false;
-    console.log('Se ha llamado singup, ahora hay que llamar al backend');
+    console.log('El usuario a guardar es: ', this.signupForm.value);
 
     if (this.signupForm.invalid) {
+      console.log('El formulario es inválido');
       return;
     }
     this.isValidForm = true;
+    console.log('Parece que el formulario es válido');
     this.signupUser = this.signupForm.value;
     console.log(this.signupUser);
 

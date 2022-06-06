@@ -60,33 +60,34 @@ export class ProfileComponent implements OnInit {
 
     this.email = new FormControl(this.updateUser.email, [
       Validators.required,
+      Validators.minLength(8),
       Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'),
     ]);
 
     this.password = new FormControl(this.updateUser.password, [
       Validators.minLength(8),
+      Validators.maxLength(16),
     ]);
 
     this.nombre = new FormControl(this.updateUser.nombre, [
       Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(25),
+      Validators.minLength(2),
+      Validators.maxLength(20),
     ]);
 
     this.apellido1 = new FormControl(this.updateUser.apellido1, [
       Validators.required,
-      Validators.minLength(5),
-      Validators.maxLength(25),
+      Validators.minLength(2),
+      Validators.maxLength(20),
     ]);
 
     this.apellido2 = new FormControl(this.updateUser.apellido2, [
-      Validators.minLength(5),
-      Validators.maxLength(25),
+      Validators.minLength(2),
+      Validators.maxLength(20),
     ]);
 
     this.nacimiento = new FormControl(
-      formatDate(this.updateUser.nacimiento, 'yyyy-MM-dd', 'en'),
-      [Validators.required]
+      formatDate(this.updateUser.nacimiento, 'dd-MM-yyyy', 'en')
     );
 
     this.tel1 = new FormControl(this.updateUser.tel1, [
@@ -100,11 +101,9 @@ export class ProfileComponent implements OnInit {
       Validators.maxLength(9),
     ]);
 
-    this.genero = new FormControl(this.updateUser.genero, [
-      Validators.required,
-    ]);
+    this.genero = new FormControl(this.updateUser.genero);
 
-    this.rol = new FormControl(this.updateUser.rol, [Validators.required]);
+    this.rol = new FormControl(this.updateUser.rol);
 
     this.updateForm = this.formBuilder.group({
       email: this.email,

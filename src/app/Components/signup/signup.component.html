@@ -8,8 +8,13 @@
         *ngIf="email.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="email.errors.required">Email es required</div>
-        <div *ngIf="email.errors.pattern">Email not a valid format.</div>
+        <div *ngIf="email.errors.required">El e-mail es necesario.</div>
+        <div *ngIf="email.errors.pattern">
+          El formato del e-mail no es correcto.
+        </div>
+        <div *ngIf="email.errors.minlength">
+          El e-mail debe tener 8 carácteres como mínimo.
+        </div>
       </div>
     </div>
 
@@ -20,9 +25,11 @@
         *ngIf="password.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="password.errors.required">Password is required</div>
         <div *ngIf="password.errors.minlength">
-          Password must be at least 8 characters long.
+          El password debe tener 8 carácteres como mínimo.
+        </div>
+        <div *ngIf="password.errors.maxlength">
+          El password debe tener 16 carácteres como máximo.
         </div>
       </div>
     </div>
@@ -33,12 +40,12 @@
         *ngIf="nombre.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="nombre.errors.required">Nombre is required</div>
+        <div *ngIf="nombre.errors.required">El nombre es necesario</div>
         <div *ngIf="nombre.errors.minlength">
-          Nombre must be at least 5 characters long.
+          El nombre debe tener 2 carácteres como mínimo.
         </div>
         <div *ngIf="nombre.errors.maxlength">
-          Nombre can be max 25 characters long.
+          El nombre debe tener 20 carácteres como máximo.
         </div>
       </div>
     </div>
@@ -49,12 +56,14 @@
         *ngIf="apellido1.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="apellido1.errors.required">Apellido1 is required</div>
+        <div *ngIf="apellido1.errors.required">
+          El primer apellido es necesario
+        </div>
         <div *ngIf="apellido1.errors.minlength">
-          Apellido1 must be at least 5 characters long.
+          El primer apellido debe tener 2 carácteres como mínimo.
         </div>
         <div *ngIf="apellido1.errors.maxlength">
-          Apellido1 can be max 25 characters long.
+          El primer apellido debe tener 20 carácteres como máximo.
         </div>
       </div>
     </div>
@@ -66,22 +75,16 @@
         [ngClass]="'error'"
       >
         <div *ngIf="apellido2.errors.minlength">
-          Apellido2 must be at least 5 characters long.
+          El segundo apellido debe tener 2 carácteres como mínimo.
         </div>
         <div *ngIf="apellido2.errors.maxlength">
-          Apellido2 can be max 25 characters long.
+          El segundo apellido debe tener 20 carácteres como máximo.
         </div>
       </div>
     </div>
     <div>
       <label for="nacimiento">Nacimiento: </label>
       <input type="date" [formControl]="nacimiento" />
-      <div
-        *ngIf="nacimiento.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="nacimiento.errors.required">Birth date is required</div>
-      </div>
     </div>
     <div>
       <label for="tel1">Teléfono 1: </label>
@@ -90,12 +93,12 @@
         *ngIf="tel1.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="tel1.errors.required">tel1 is required</div>
+        <div *ngIf="tel1.errors.required">El teléfono 1 es necesario.</div>
         <div *ngIf="tel1.errors.minlength">
-          tel1 must be at least 9 characters long.
+          El teléfono 1 tiene que tener 9 dígitos.
         </div>
         <div *ngIf="tel1.errors.maxlength">
-          tel1 can be max 9 characters long.
+          El teléfono 1 tiene que tener 9 dígitos.
         </div>
       </div>
     </div>
@@ -106,66 +109,55 @@
         *ngIf="tel2.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="tel2.errors.required">tel2 is required</div>
         <div *ngIf="tel2.errors.minlength">
-          tel2 must be at least 9 characters long.
+          El teléfono 2 tiene que tener 9 dígitos.
         </div>
         <div *ngIf="tel2.errors.maxlength">
-          tel2 can be max 9 characters long.
+          El teléfono 2 tiene que tener 9 dígitos.
         </div>
       </div>
     </div>
     <form>
       <span>Genero:</span>
-      <label>
-        <input
-          type="radio"
-          name="genero"
-          value="mujer"
-          id="option1"
-          checked="checked"
-          [formControl]="genero"
-        />
-        <span>Mujer</span>
-      </label>
-      <label>
-        <!--<label for="option1">Mujer</label>-->
-        <input
-          type="radio"
-          name="genero"
-          value="hombre"
-          id="option2"
-          [formControl]="genero"
-        />
-        <span>Hombre</span>
-      </label>
-      <!--<label for="option2">Hombre</label>-->
+
+      <input
+        type="radio"
+        name="genero"
+        value="mujer"
+        id="option1"
+        [formControl]="genero"
+      />
+      <label for="option1">Mujer</label>
+
+      <input
+        type="radio"
+        name="genero"
+        value="hombre"
+        id="option2"
+        [formControl]="genero"
+      />
+      <label for="option2">Hombre</label>
     </form>
     <form>
       <span>Rol:</span>
-      <label>
-        <input
-          type="radio"
-          name="radio2"
-          value="basic"
-          id="option3"
-          checked="checked"
-          [formControl]="rol"
-        />
-        <span>Básico</span>
-      </label>
-      <label>
-        <!--<label for="option1">Mujer</label>-->
-        <input
-          type="radio"
-          name="radio2"
-          value="admin"
-          id="option4"
-          [formControl]="rol"
-        />
-        <span>Administrador</span>
-      </label>
-      <!--<label for="option2">Hombre</label>-->
+
+      <input
+        type="radio"
+        name="radio2"
+        value="basic"
+        id="option3"
+        [formControl]="rol"
+      />
+      <label for="option3">Básico</label>
+
+      <input
+        type="radio"
+        name="radio2"
+        value="admin"
+        id="option4"
+        [formControl]="rol"
+      />
+      <label for="option4">Administrador</label>
     </form>
 
     <button type="submit">Signup</button>
