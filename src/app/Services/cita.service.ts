@@ -15,7 +15,7 @@ export class CitaService {
   private urlApi: string;
 
   constructor(private http: HttpClient) {
-    this.urlApi = 'http://localhost:9000/Api/';
+    this.urlApi = 'https://sheyla-homs.herokuapp.com/Api/';
   }
 
   crearCita(cita: CitaDTO): Observable<CitaDTO> {

@@ -18,7 +18,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) {
     this.controller = 'login';
-    this.urlApi = 'http://localhost:9000/Api/' + this.controller;
+    this.urlApi = 'https://sheyla-homs.herokuapp.com/Api/' + this.controller;
   }
 
   login(auth: AuthDTO): Observable<AuthToken> {

@@ -14,7 +14,7 @@ export class ServicioService {
   private urlApi: string;
 
   constructor(private http: HttpClient) {
-    this.urlApi = 'http://localhost:9000/Api/';
+    this.urlApi = 'https://sheyla-homs.herokuapp.com/Api/';
   }
 
   crearServicio(servicio: ServicioDTO): Observable<ServicioDTO> {
