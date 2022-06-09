@@ -82,14 +82,15 @@ export class FormCitasComponent implements OnInit {
     // del formulario con los datos de la cita
     if (this.citaId) {
       this.isUpdate = true;
-      console.log('La cita que queremos cargar es: ', this.citaId);
       this.citaService.getCitabyId(this.citaId).subscribe((cita) => {
-        console.log('La cita que se ha leido es: ', cita);
-        console.log('La fecha leida es: ', cita.start);
         let date = new Date(cita.start);
+        //le quito la Z a la fecha para que no salga un warning
+        //al cargar la fecha en el input. Tambien hay que restarle
+        //la diferencia horaria con el GMT0 porque Mongo guarda
+        //la fecha introducida en GMT0 y si no se hace se carga un horario
+        // con 1 o 2 horas de diferencia.
         date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
         this.start.setValue(date.toISOString().replace('Z', ''));
-        console.log('La fecha que se pasa al formulario: ', this.start);
         this.user_id.setValue(cita.user_id);
         this.servicio.setValue(cita.servicio);
         this.idEvento.setValue(cita.idEvento);
@@ -117,29 +118,15 @@ export class FormCitasComponent implements OnInit {
   }
 
   crearCita(): void {
-    /*this.isValidForm = false;
-    
-    if (!this.citaForm.value.idEvento) {
-      console.log('El formulario no es valido');
-      return;
-    }
-
-    this.isValidForm = true;*/
-
     this.signupCita = this.citaForm.value;
-    console.log('Esta es la cita: ', this.signupCita);
-    console.log('Esta es la fecha de la cita: ', this.signupCita.start);
     //Leo los datos del ususario y servicio escogidos en el form
     this.servicioService
       .getServicioById(this.signupCita.servicio)
       .subscribe((servicioLeido: ServicioDTO) => {
-        console.log('El servicio leído es: ', servicioLeido);
         this.userService
           .getUserById(this.signupCita.user_id)
           .subscribe((userLeido: UserDTO) => {
-            console.log('El usuario leído es: ', userLeido);
             //Ahora que tenemos estos datos guardamos la cita y el evento en la BD
-            //this.citaService.crearCita(this.signupCita).subscribe();
             this.newEvent.start = this.signupCita.start;
             this.newEvent.end = new Date(
               new Date(this.signupCita.start).getTime() +
@@ -151,57 +138,28 @@ export class FormCitasComponent implements OnInit {
               userLeido.nombre +
               ' ' +
               userLeido.apellido1;
-            console.log('El fin del evento es: ', this.newEvent.end);
-            //Leer el evento que acabo de guardar para obtener el id
-            //añadir el id del evento a la cita
 
             this.citaService
               .crearEvent(this.newEvent)
               .subscribe((eventoCreado: EventDTO) => {
-                console.log(
-                  'Esto es lo que devuelve crear evento: ',
-                  eventoCreado
-                );
                 //añadimos el id del evento a la cita
                 this.signupCita.idEvento = eventoCreado._id;
-                console.log(
-                  'Esta es la cita que se va a crear: ',
-                  this.signupCita
-                );
                 //Creamos la cita con el id del evento
-                this.citaService
-                  .crearCita(this.signupCita)
-                  .subscribe((CitaCreada: CitaDTO) => {
-                    console.log('Esta es la cita creada: ', CitaCreada);
-                  });
+                this.citaService.crearCita(this.signupCita).subscribe();
               });
           });
       });
 
     this.citaForm.reset();
-    //this.router.navigateByUrl('');
   }
 
   editarCita(): void {
-    console.log('UPDATE citaid: ', this.citaId);
-    console.log(
-      'UPDATE valor de citaForm al entrar en editarCita: ',
-      this.citaForm.value
-    );
-    /*this.isValidForm = false;
-    if (this.citaForm.invalid) {
-      return;
-    }
-
-    this.isValidForm = true;*/
     this.servicioService
       .getServicioById(this.citaForm.value.servicio)
       .subscribe((servicioLeido: ServicioDTO) => {
-        console.log('UPDATE El servicio leído es: ', servicioLeido);
         this.userService
           .getUserById(this.citaForm.value.user_id)
           .subscribe((userLeido: UserDTO) => {
-            console.log('UPDATE El usuario leído es: ', userLeido);
             //Ahora que tenemos estos datos guardamos la cita y el evento en la BD
             //this.citaService.crearCita(this.signupCita).subscribe();
             this.newEvent.start = this.citaForm.value.start;
@@ -215,35 +173,15 @@ export class FormCitasComponent implements OnInit {
               userLeido.nombre +
               ' ' +
               userLeido.apellido1;
-            console.log('UPDATE Datos del evento a guardar: ', this.newEvent);
             //Leer el evento que acabo de guardar para obtener el id
             //añadir el id del evento a la cita
-            console.log(
-              'UPDATE id del evento a modificar: ',
-              this.citaForm.value.idEvento
-            );
+
             this.citaService
               .updateEvent(this.citaForm.value.idEvento, this.newEvent)
               .subscribe((eventoModificado: EventDTO) => {
-                console.log(
-                  'UPDATE Esto es lo que devuelve updateEvent: ',
-                  eventoModificado
-                );
-                console.log(
-                  'UPDATE Esta es la cita que se va a crear: ',
-                  this.citaForm.value
-                );
-                console.log(
-                  'UPDATE valor de citaForm para cambiar: ',
-                  this.citaForm.value
-                );
                 this.citaService
                   .updateCita(this.citaId, this.citaForm.value)
-                  .subscribe((citaModificada: CitaDTO) => {
-                    console.log(
-                      'Esta es la cita Modificada en la BD: ',
-                      citaModificada
-                    );
+                  .subscribe(() => {
                     this.router.navigateByUrl('citas');
                   });
               });
@@ -254,15 +192,12 @@ export class FormCitasComponent implements OnInit {
   guardarCita(): void {
     this.isValidForm = false;
     if (this.citaForm.invalid) {
-      console.log('citaForm.invalid es: ', this.citaForm.invalid);
       return;
     }
     this.isValidForm = true;
     if (this.isUpdate) {
-      console.log('Se va a llamar a editarCita');
       this.editarCita();
     } else {
-      console.log('Se va a llamar a crearCita');
       this.crearCita();
     }
   }

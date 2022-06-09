@@ -60,20 +60,16 @@ export class LoginComponent implements OnInit {
     this.isValidForm = false;
     let responseOK: boolean = false;
     let responseError: any;
-    console.log('Se ha llamado a login, ahora hay que llamar al backend');
 
     if (this.loginForm.invalid) {
       return;
     }
     this.isValidForm = true;
     this.loginUser = this.loginForm.value;
-    console.log(this.loginUser);
 
     this.authService.login(this.loginUser).subscribe(
       (resp: AuthToken) => {
         responseOK = true;
-        console.log('responseOK true');
-        console.log(resp);
         this.loginUser.id = resp.id;
         this.loginUser.accessToken = resp.accessToken;
 
@@ -90,7 +86,6 @@ export class LoginComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         responseOK = false;
-        console.log('responseOK false');
         responseError = error.error;
         const headerInfo: HeaderMenus = {
           showAuthSection: false,
@@ -99,7 +94,5 @@ export class LoginComponent implements OnInit {
         this.headerMenusService.headerManagement.next(headerInfo);
       }
     );
-    //this.loginForm.reset();
-    //this.router.navigateByUrl('profile');
   }
 }

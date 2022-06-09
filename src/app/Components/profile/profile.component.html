@@ -10,10 +10,7 @@
       />
       <label for="email">E-mail</label>
 
-      <div
-        *ngIf="email.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="email.errors && isValidForm != null && !isValidForm">
         <div *ngIf="email.errors.required">El e-mail es necesario.</div>
         <div *ngIf="email.errors.pattern">
           El formato del e-mail no es correcto.
@@ -51,10 +48,7 @@
         id="nombre"
       />
       <label for="nombre">Nombre</label>
-      <div
-        *ngIf="nombre.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="nombre.errors && isValidForm != null && !isValidForm">
         <div *ngIf="nombre.errors.required">El nombre es necesario</div>
         <div *ngIf="nombre.errors.minlength">
           El nombre debe tener 2 carácteres como mínimo.
@@ -73,10 +67,7 @@
         id="apellido1"
       />
       <label for="apellido1">Apellido1</label>
-      <div
-        *ngIf="apellido1.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="apellido1.errors && isValidForm != null && !isValidForm">
         <div *ngIf="apellido1.errors.required">El apellido1 es necesario</div>
         <div *ngIf="apellido1.errors.minlength">
           El apellido1 debe tener 2 carácteres como mínimo.
@@ -95,10 +86,7 @@
         id="apellido2"
       />
       <label for="apellido2">Apellido2</label>
-      <div
-        *ngIf="apellido2.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="apellido2.errors && isValidForm != null && !isValidForm">
         <div *ngIf="apellido2.errors.required">El apellido2 es necesario</div>
         <div *ngIf="apellido2.errors.minlength">
           El apellido2 debe tener 2 carácteres como mínimo.
@@ -122,10 +110,7 @@
     <div class="form-floating mb-3">
       <input type="text" class="form-control" [formControl]="tel1" id="tel1" />
       <label for="tel1">Teléfono principal</label>
-      <div
-        *ngIf="tel1.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="tel1.errors && isValidForm != null && !isValidForm">
         <div *ngIf="tel1.errors.required">
           El teléfono principal es necesario.
         </div>
@@ -141,10 +126,7 @@
     <div class="form-floating mb-3">
       <input type="text" class="form-control" [formControl]="tel2" id="tel2" />
       <label for="tel2">Teléfono secundario</label>
-      <div
-        *ngIf="tel2.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="tel2.errors && isValidForm != null && !isValidForm">
         <div *ngIf="tel2.errors.minlength">
           El teléfono secundario debe tener 9 carácteres.
         </div>

@@ -46,8 +46,8 @@ export class CitaService {
     return this.http.get<EventDTO[]>(this.urlApi + 'events');
   }
 
-  obtenerEventByStart(start: Date): Observable<EventDTO> {
-    return this.http.get<EventDTO>(this.urlApi + 'events/' + start);
+  obtenerEventById(id: string): Observable<EventDTO> {
+    return this.http.get<EventDTO>(this.urlApi + 'events/' + id);
   }
 
   updateEvent(idEvent: string, event: EventDTO): Observable<EventDTO> {

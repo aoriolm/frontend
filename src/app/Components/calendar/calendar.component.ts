@@ -14,7 +14,6 @@ import { CitaService } from 'src/app/Services/cita.service';
 })
 export class CalendarComponent implements OnInit {
   citas!: CitaDTO[];
-  //public events: any[];
   public options: any;
   prueba: any;
 

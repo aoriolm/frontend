@@ -120,58 +120,45 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let responseError: any;
-
-    console.log('El id del usuario es: ', this.userId);
     if (!this.userId) {
       this.userId = this.localStorageService.get('id');
-      console.log('Se carga el id del localstorage: ', this.userId);
     }
-    this.userService.getUserById(this.userId).subscribe(
-      (userData: UserDTO) => {
-        this.email.setValue(userData.email);
-        this.nombre.setValue(userData.nombre);
-        this.apellido1.setValue(userData.apellido1);
-        this.apellido2.setValue(userData.apellido2);
-        this.nacimiento.setValue(
-          formatDate(userData.nacimiento, 'yyyy-MM-dd', 'en')
-        );
-        this.tel1.setValue(userData.tel1);
-        this.tel2.setValue(userData.tel2);
-        this.genero.setValue(userData.genero);
-        this.rol.setValue(userData.rol);
+    this.userService.getUserById(this.userId).subscribe((userData: UserDTO) => {
+      this.email.setValue(userData.email);
+      this.nombre.setValue(userData.nombre);
+      this.apellido1.setValue(userData.apellido1);
+      this.apellido2.setValue(userData.apellido2);
+      this.nacimiento.setValue(
+        formatDate(userData.nacimiento, 'yyyy-MM-dd', 'en')
+      );
+      this.tel1.setValue(userData.tel1);
+      this.tel2.setValue(userData.tel2);
+      this.genero.setValue(userData.genero);
+      this.rol.setValue(userData.rol);
 
-        this.updateForm = this.formBuilder.group({
-          email: this.email,
-          password: this.password,
-          nombre: this.nombre,
-          apellido1: this.apellido1,
-          apellido2: this.apellido2,
-          nacimiento: this.nacimiento,
-          tel1: this.tel1,
-          tel2: this.tel2,
-          genero: this.genero,
-          rol: this.rol,
-        });
-      } /*,
-        (error: HttpErrorResponse) => {
-          responseError = error.error;
-          this.sharedService.errorLog(errorResponse);
-        }*/
-    );
+      this.updateForm = this.formBuilder.group({
+        email: this.email,
+        password: this.password,
+        nombre: this.nombre,
+        apellido1: this.apellido1,
+        apellido2: this.apellido2,
+        nacimiento: this.nacimiento,
+        tel1: this.tel1,
+        tel2: this.tel2,
+        genero: this.genero,
+        rol: this.rol,
+      });
+    });
   }
 
   update(): void {
     this.isValidForm = false;
-    ///const userId = this.localStorageService.get('id');
-    console.log('Se ha llamado update, ahora hay que llamar al backend');
 
     if (this.updateForm.invalid) {
       return;
     }
     this.isValidForm = true;
     this.updateUser = this.updateForm.value;
-    console.log(this.updateUser);
 
     if (this.userId) {
       this.userService
@@ -179,7 +166,6 @@ export class ProfileComponent implements OnInit {
         .subscribe((data) => {
           this.router.navigateByUrl('usuarios');
         });
-      //this.updateForm.reset();
     } else {
       return;
     }

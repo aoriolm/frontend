@@ -16,7 +16,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="mb-3">
       <label for="users">Selecciona el cliente:</label>
       <select class="form-select" [formControl]="user_id">
         <option *ngFor="let user of userList" [ngValue]="user._id">
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="mb-3">
       <label for="servicios">Selecciona el servicio:</label>
       <select class="form-select" [formControl]="servicio">
         <option *ngFor="let servicio of serviciosList" [ngValue]="servicio._id">

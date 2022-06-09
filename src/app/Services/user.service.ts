@@ -18,12 +18,10 @@ export class UserService {
 
   signUp(user: UserDTO): Observable<UserDTO> {
     return this.http.post<UserDTO>(this.urlApi + 'signup', user);
-    //.pipe(catchError(this.sharedService.handleError));
   }
 
   getUserById(userId: string): Observable<UserDTO> {
     return this.http.get<UserDTO>(this.urlApi + 'users/' + userId);
-    //.pipe(catchError(this.sharedService.handleError));
   }
 
   updateUser(userId: string, user: UserDTO): Observable<UserDTO> {
@@ -32,7 +30,6 @@ export class UserService {
 
   getUsers(): Observable<UserDTO[]> {
     return this.http.get<UserDTO[]>(this.urlApi + 'users/');
-    //.pipe(catchError(this.sharedService.handleError));
   }
   deleteUser(userId: string): Observable<deleteRes> {
     return this.http.delete<deleteRes>(this.urlApi + 'users/' + userId);

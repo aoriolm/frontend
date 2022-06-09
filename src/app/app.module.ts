@@ -32,6 +32,7 @@ import { MasajesComponent } from './Components/web/masajes/masajes.component';
 import { MicrobladingComponent } from './Components/web/microblading/microblading.component';
 import { PedicurasComponent } from './Components/web/pedicuras/pedicuras.component';
 import { PestanasComponent } from './Components/web/pestanas/pestanas.component';
+import { FooterComponent } from './Components/footer/footer.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -65,6 +66,7 @@ FullCalendarModule.registerPlugins([
     MicrobladingComponent,
     PedicurasComponent,
     PestanasComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

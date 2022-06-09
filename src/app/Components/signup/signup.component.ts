@@ -118,19 +118,15 @@ export class SignupComponent implements OnInit {
 
   signup(): void {
     this.isValidForm = false;
-    console.log('El usuario a guardar es: ', this.signupForm.value);
 
     if (this.signupForm.invalid) {
-      console.log('El formulario es inválido');
       return;
     }
     this.isValidForm = true;
-    console.log('Parece que el formulario es válido');
+
     this.signupUser = this.signupForm.value;
-    console.log(this.signupUser);
 
     this.UserService.signUp(this.signupUser).subscribe();
     this.signupForm.reset();
-    this.router.navigateByUrl('');
   }
 }

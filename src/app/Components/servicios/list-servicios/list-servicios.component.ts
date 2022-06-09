@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ServicioDTO } from 'src/app/Models/servicio.dto';
-import { LocalStorageService } from 'src/app/Services/local-storage.service';
 import { ServicioService } from 'src/app/Services/servicio.service';
 
 @Component({
@@ -14,8 +13,7 @@ export class ListServiciosComponent {
 
   constructor(
     private router: Router,
-    private servicioService: ServicioService,
-    private localStorageService: LocalStorageService
+    private servicioService: ServicioService
   ) {
     this.loadServicios();
   }
@@ -41,15 +39,13 @@ export class ListServiciosComponent {
     );
     if (result) {
       this.servicioService.deleteServicio(servicioId).subscribe((response) => {
-        console.log('Lo que devuelve eliminar evento: ', response);
         if (response.deletedCount > 0) {
           this.loadServicios();
         } else {
-          console.log('No se ha podido eliminar el servicio');
+          //No se ha podido eliminar el servicio
           return;
         }
       });
     }
-    //this.router.navigateByUrl('form-citas');
   }
 }

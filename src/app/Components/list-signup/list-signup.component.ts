@@ -37,11 +37,10 @@ export class ListSignupComponent implements OnInit {
     );
     if (result) {
       this.userService.deleteUser(clienteId).subscribe((response) => {
-        console.log('Lo que devuelve eliminar evento: ', response);
         if (response.deletedCount > 0) {
           this.loadClientes();
         } else {
-          console.log('No se ha podido eliminar el cliente');
+          //No se ha podido eliminar el cliente
           return;
         }
       });

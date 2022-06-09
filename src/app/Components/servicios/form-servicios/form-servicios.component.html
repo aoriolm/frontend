@@ -9,11 +9,8 @@
         id="nombre"
       />
       <label for="nombre">Nombre</label>
-      <div
-        *ngIf="nombre.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="nombre.errors.required">El nombre es necesario</div>
+      <div *ngIf="nombre.errors && isValidForm != null && !isValidForm">
+        <div *ngIf="nombre.errors.required">El nombre es necesario.</div>
         <div *ngIf="nombre.errors.minlength">
           El nombre debe tener 5 carácteres como mínimo.
         </div>
@@ -31,18 +28,15 @@
         id="descripcion"
       />
       <label for="descripcion">Descripción</label>
-      <div
-        *ngIf="descripcion.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="descripcion.errors && isValidForm != null && !isValidForm">
         <div *ngIf="descripcion.errors.required">
-          El descripcion es necesario
+          La descripción es necesaria.
         </div>
         <div *ngIf="descripcion.errors.minlength">
-          El descripcion debe tener 5 carácteres como mínimo.
+          La descripción debe tener 5 carácteres como mínimo.
         </div>
         <div *ngIf="descripcion.errors.maxlength">
-          El descripcion debe tener 250 carácteres como máximo.
+          La descripción debe tener 250 carácteres como máximo.
         </div>
       </div>
     </div>
@@ -55,10 +49,7 @@
         id="precio"
       />
       <label for="precio">Precio</label>
-      <div
-        *ngIf="precio.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="precio.errors && isValidForm != null && !isValidForm">
         <div *ngIf="precio.errors.required">El precio es necesario.</div>
       </div>
     </div>
@@ -70,12 +61,9 @@
         [formControl]="duracion"
         id="duracion"
       />
-      <label for="duracion">duracion</label>
-      <div
-        *ngIf="duracion.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="duracion.errors.required">la duracion es necesaria.</div>
+      <label for="duracion">Duracion</label>
+      <div *ngIf="duracion.errors && isValidForm != null && !isValidForm">
+        <div *ngIf="duracion.errors.required">La duracion es necesaria.</div>
       </div>
     </div>
 
