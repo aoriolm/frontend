@@ -1,40 +1,147 @@
-<!DOCTYPE html>
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <title>Sheila Homs | Centre d'estètica</title>
-    <meta name="author" content="Alexandre Oriol" />
-    <meta
-      name="description"
-      content="Información sobre el centro de estética Sheila Homs"
-    />
+<div class="pre-header">
+  <div class="main-header">
+    <div class="logo-img">
+      <img class="imagen" src="./assets/img/logo.png" alt="logo" />
+    </div>
 
-    <link rel="stylesheet" href="header.component.sass" />
-  </head>
+    <span class="site-name">Sheyla Homs Centre d'estètica</span>
+    <div *ngIf="showNoAuthSection">
+      <button
+        class="btn btn-secondary button-login"
+        (click)="navigationTo('login')"
+      >
+        Iniciar sesión
+      </button>
+    </div>
+    <div *ngIf="showAuthSection">
+      <button
+        class="btn btn-secondary button-login"
+        (click)="navigationTo('logout')"
+      >
+        Cerrar sesión
+      </button>
+    </div>
+  </div>
+</div>
 
-  <body>
-    <header class="pre-header">
-      <div class="main-header">
-        <div class="logo-img">
-          <img class="imagen" src="./assets/img/logo.png" alt="logo" />
-        </div>
-        <div class="logo-header">
-          <span class="site-name">Sheyla Homs Centre d'estètica</span>
-        </div>
-        <div *ngIf="showNoAuthSection">
-          <button (click)="navigationTo('login')">Iniciar sesión</button>
-          <button (click)="navigationTo('signup')">Registrarse</button>
-        </div>
-
-        <!-- AUTH REQUIRED -->
-        <div *ngIf="showAuthSection">
-          <button (click)="navigationTo('dashboard')">Dashboard</button>
-          <button (click)="navigationTo('home')">Inicio</button>
-          <button (click)="navigationTo('citas')">Citas</button>
-          <button (click)="navigationTo('profile')">Profile</button>
-          <button (click)="navigationTo('logout')">Logout</button>
-        </div>
-      </div>
-    </header>
-  </body>
-</html>
+<nav *ngIf="showNoAuthSection" class="navbar navbar-expand-lg navbar-dark">
+  <div class="container-fluid">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarNav"
+      aria-controls="navbarNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="home">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="depilacion"
+            >Depilación</a
+          >
+          <ul>
+            <li class="nav-item">
+              <a class="nav-link" href="depilacion#milesman">Láser</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="depilacion#cera">Con cera</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="maquillajes">Maquillajes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="microblading">Microblading</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pestanas">Pestañas</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="manicuras">Manicuras</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="pedicuras">Pedicuras</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="masajes">Masajes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="faciales">Faciales</a>
+          <ul>
+            <li class="nav-item">
+              <a class="nav-link" href="faciales#higiene">Higiene</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faciales#tratamiento"
+                >Higiene con tto.</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faciales#skin">SkinPen</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faciales#cocteles">Cócteles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faciales#radio">Radiofrecuencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="faciales#q">Q-switch</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="corporales">Corporales</a>
+          <ul>
+            <li class="nav-item">
+              <a class="nav-link" href="corporales#higiene">Higiene espalda</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="corporales#radio">Radiofrecuencia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="corporales#cavitacion">Cavitación</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="corporales#preso">Presoterapia</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="corporales#muscle">Musclebeauty</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="laser">Láser Azul</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<!-- AUTH REQUIRED -->
+<div class="panel" *ngIf="showAuthSection">
+  <div class="panel__botones">
+    <button class="btn btn-secondary" (click)="navigationTo('calendar')">
+      Agenda
+    </button>
+    <button class="btn btn-secondary" (click)="navigationTo('citas')">
+      Citas
+    </button>
+    <button class="btn btn-secondary" (click)="navigationTo('usuarios')">
+      Clientes
+    </button>
+    <button class="btn btn-secondary" (click)="navigationTo('servicios')">
+      Servicios
+    </button>
+    <button class="btn btn-secondary" (click)="navigationTo('profile')">
+      Perfil
+    </button>
+  </div>
+</div>

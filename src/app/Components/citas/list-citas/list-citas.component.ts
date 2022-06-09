@@ -37,6 +37,8 @@ export class ListCitasComponent implements OnInit {
     this.citaService.obtenerCitas().subscribe((citas) => {
       console.log('Start vale: ', new Date(citas[1].start).getTime());
       console.log('La fecha a comparar es: ', this.date.getTime());
+      // filtro las citas antiguas para no saturar la vista
+      // tampoco tiene sentido modificar una cita pasada
       this.citas = citas.filter(
         (cita) => new Date(cita.start).getTime() > this.date.getTime()
       );

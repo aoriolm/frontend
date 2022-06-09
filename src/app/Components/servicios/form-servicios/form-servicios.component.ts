@@ -33,7 +33,7 @@ export class FormServiciosComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {
-    this.signupServicio = new ServicioDTO('', '', Number(null), Number(null));
+    this.signupServicio = new ServicioDTO('', '', null, null);
     this.isValidForm = null;
     this.servicioId = this.activatedRoute.snapshot.paramMap.get('id');
     this.isUpdate = null;
@@ -90,19 +90,18 @@ export class FormServiciosComponent implements OnInit {
   }
 
   crearServicio(): void {
-    this.isValidForm = false;
     console.log('Se ha llamado crearServicio, ahora hay que llamar al backend');
 
-    if (this.servicioForm.invalid) {
+    /*if (this.servicioForm.invalid) {
+      console.log('El formulario es inválido', this.servicioForm.invalid);
       return;
-    }
-    this.isValidForm = true;
+    }*/
+
     this.signupServicio = this.servicioForm.value;
     console.log(this.signupServicio);
 
     this.servicioService.crearServicio(this.signupServicio).subscribe();
     this.servicioForm.reset();
-    //this.router.navigateByUrl('dashboard');
   }
 
   editarSercicio(): void {
@@ -114,16 +113,22 @@ export class FormServiciosComponent implements OnInit {
     this.servicioService
       .updateServicio(this.servicioId, this.servicioForm.value)
       .subscribe((servicioModificado: ServicioDTO) => {
+        console.log('UPDATE El servicio modificiado es: ', servicioModificado);
         this.router.navigateByUrl('servicios');
-        console.log('UPDATE El servicio leído es: ', servicioModificado);
       });
   }
 
   guardarServicio(): void {
+    this.isValidForm = false;
     if (this.servicioForm.invalid) {
+      console.log(
+        'El formulario es inválido en guardar servicio',
+        this.servicioForm.invalid
+      );
       return;
     }
 
+    this.isValidForm = true;
     if (this.isUpdate) {
       console.log('Se va a llamar a editarServicio');
       this.editarSercicio();

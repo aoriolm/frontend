@@ -1,13 +1,15 @@
-<div>
-  <h1>Crear una cita</h1>
+<div class="centrado">
+  <h1>Crear o modificar una cita</h1>
   <form [formGroup]="citaForm" (ngSubmit)="guardarCita()">
-    <div>
-      <label for="start">Fecha y hora: </label>
-      <input type="datetime-local" [formControl]="start" />
-      <div
-        *ngIf="start.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+    <div class="form-floating mb-3">
+      <input
+        type="datetime-local"
+        class="form-control"
+        [formControl]="start"
+        id="start"
+      />
+      <label for="nacimiento">Fecha y hora:</label>
+      <div *ngIf="start.errors && isValidForm != null && !isValidForm">
         <div *ngIf="start.errors.required">
           La fecha es necesaria para guardar la cita.
         </div>
@@ -16,15 +18,12 @@
 
     <div>
       <label for="users">Selecciona el cliente:</label>
-      <select [formControl]="user_id">
+      <select class="form-select" [formControl]="user_id">
         <option *ngFor="let user of userList" [ngValue]="user._id">
           {{ user.nombre + " " + user.apellido1 + " / " + user.email }}
         </option>
       </select>
-      <div
-        *ngIf="user_id.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="user_id.errors && isValidForm != null && !isValidForm">
         <div *ngIf="user_id.errors.required">
           El cliente es necesario para guardar la cita.
         </div>
@@ -33,21 +32,18 @@
 
     <div>
       <label for="servicios">Selecciona el servicio:</label>
-      <select [formControl]="servicio">
+      <select class="form-select" [formControl]="servicio">
         <option *ngFor="let servicio of serviciosList" [ngValue]="servicio._id">
           {{ servicio.nombre }}
         </option>
       </select>
-      <div
-        *ngIf="servicio.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
+      <div *ngIf="servicio.errors && isValidForm != null && !isValidForm">
         <div *ngIf="servicio.errors.required">
           El servicio es necesario para guardar la cita.
         </div>
       </div>
     </div>
 
-    <button type="submit">Guardar Cita</button>
+    <button class="btn btn-primary" type="submit">Guardar Cita</button>
   </form>
 </div>

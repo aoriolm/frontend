@@ -1,9 +1,15 @@
-<div>
-  <h1>Profile</h1>
+<div class="centrado">
+  <h1>Actualizar perfil</h1>
   <form [formGroup]="updateForm" (ngSubmit)="update()">
-    <div>
-      <label for="email">Email: </label>
-      <input type="email" [formControl]="email" />
+    <div class="form-floating mb-3">
+      <input
+        type="email"
+        class="form-control"
+        [formControl]="email"
+        id="email"
+      />
+      <label for="email">E-mail</label>
+
       <div
         *ngIf="email.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
@@ -18,24 +24,33 @@
       </div>
     </div>
 
-    <div>
-      <label for="password">Password: </label>
-      <input type="password" [formControl]="password" />
-      <div
-        *ngIf="password.errors && isValidForm != null && !isValidForm"
-        [ngClass]="'error'"
-      >
-        <div *ngIf="password.errors.minlength">
-          El password debe tener 8 carácteres como mínimo.
-        </div>
-        <div *ngIf="password.errors.maxlength">
-          El password debe tener 16 carácteres como máximo.
-        </div>
+    <div class="form-floating mb-3">
+      <input
+        type="password"
+        class="form-control"
+        [formControl]="password"
+        id="password"
+      />
+      <label for="password">Contraseña</label>
+      <div *ngIf="password.errors">
+        <span *ngIf="password.errors && (password.touched || password.dirty)">
+          <span class="form-text" *ngIf="password.errors.minlength"
+            >La contraseña debe tener 8 carácteres como mínimo.</span
+          >
+          <span class="form-text" *ngIf="password.errors.maxlength"
+            >La contraseña debe tener 16 carácteres como máximo.</span
+          >
+        </span>
       </div>
     </div>
-    <div>
-      <label for="nombre">Nombre: </label>
-      <input type="text" [formControl]="nombre" />
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [formControl]="nombre"
+        id="nombre"
+      />
+      <label for="nombre">Nombre</label>
       <div
         *ngIf="nombre.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
@@ -49,117 +64,143 @@
         </div>
       </div>
     </div>
-    <div>
-      <label for="apellido1">Apellido1: </label>
-      <input type="text" [formControl]="apellido1" />
+
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [formControl]="apellido1"
+        id="apellido1"
+      />
+      <label for="apellido1">Apellido1</label>
       <div
         *ngIf="apellido1.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="apellido1.errors.required">
-          El primer apellido es necesario
-        </div>
+        <div *ngIf="apellido1.errors.required">El apellido1 es necesario</div>
         <div *ngIf="apellido1.errors.minlength">
-          El primer apellido debe tener 2 carácteres como mínimo.
+          El apellido1 debe tener 2 carácteres como mínimo.
         </div>
         <div *ngIf="apellido1.errors.maxlength">
-          El primer apellido debe tener 20 carácteres como máximo.
+          El apellido1 debe tener 20 carácteres como máximo.
         </div>
       </div>
     </div>
-    <div>
-      <label for="apelllido2">Apellido2: </label>
-      <input type="text" [formControl]="apellido2" />
+
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [formControl]="apellido2"
+        id="apellido2"
+      />
+      <label for="apellido2">Apellido2</label>
       <div
         *ngIf="apellido2.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
+        <div *ngIf="apellido2.errors.required">El apellido2 es necesario</div>
         <div *ngIf="apellido2.errors.minlength">
-          El segundo apellido debe tener 2 carácteres como mínimo.
+          El apellido2 debe tener 2 carácteres como mínimo.
         </div>
         <div *ngIf="apellido2.errors.maxlength">
-          El segundo apellido debe tener 20 carácteres como máximo.
+          El apellido2 debe tener 20 carácteres como máximo.
         </div>
       </div>
     </div>
-    <div>
-      <label for="nacimiento">Nacimiento: </label>
-      <input type="date" [formControl]="nacimiento" />
+
+    <div class="form-floating mb-3">
+      <input
+        type="date"
+        class="form-control"
+        [formControl]="nacimiento"
+        id="nacimiento"
+      />
+      <label for="nacimiento">Fecha de nacimiento</label>
     </div>
-    <div>
-      <label for="tel1">Teléfono 1: </label>
-      <input type="text" [formControl]="tel1" />
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" [formControl]="tel1" id="tel1" />
+      <label for="tel1">Teléfono principal</label>
       <div
         *ngIf="tel1.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="tel1.errors.required">El teléfono 1 es necesario.</div>
+        <div *ngIf="tel1.errors.required">
+          El teléfono principal es necesario.
+        </div>
         <div *ngIf="tel1.errors.minlength">
-          El teléfono 1 tiene que tener 9 dígitos.
+          El teléfono principal debe tener 9 carácteres.
         </div>
         <div *ngIf="tel1.errors.maxlength">
-          El teléfono 1 tiene que tener 9 dígitos.
+          El teléfono principal debe tener 9 carácteres.
         </div>
       </div>
     </div>
-    <div>
-      <label for="tel2">Teléfono 2: </label>
-      <input type="text" [formControl]="tel2" />
+
+    <div class="form-floating mb-3">
+      <input type="text" class="form-control" [formControl]="tel2" id="tel2" />
+      <label for="tel2">Teléfono secundario</label>
       <div
         *ngIf="tel2.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
         <div *ngIf="tel2.errors.minlength">
-          El teléfono 2 tiene que tener 9 dígitos.
+          El teléfono secundario debe tener 9 carácteres.
         </div>
         <div *ngIf="tel2.errors.maxlength">
-          El teléfono 2 tiene que tener 9 dígitos.
+          El teléfono secundario debe tener 9 carácteres.
         </div>
       </div>
     </div>
-    <form>
-      <span>Genero:</span>
+
+    <form class="mb-3">
+      <span class="me-5">Genero:</span>
 
       <input
         type="radio"
         name="genero"
         value="mujer"
         id="option1"
+        class="form-check-input me-3"
         [formControl]="genero"
       />
-      <label for="option1">Mujer</label>
+      <label class="me-5" for="option1">Mujer</label>
 
       <input
         type="radio"
         name="genero"
         value="hombre"
         id="option2"
+        class="form-check-input me-3"
         [formControl]="genero"
       />
-      <label for="option2">Hombre</label>
+      <label class="me-5" for="option2">Hombre</label>
     </form>
-    <form>
-      <span>Rol:</span>
+    <form class="mb-3">
+      <span class="me-5">Rol:</span>
 
       <input
         type="radio"
         name="radio2"
         value="basic"
         id="option3"
+        class="form-check-input me-3"
         [formControl]="rol"
       />
-      <label for="option3">Básico</label>
+      <label class="me-5" for="option3">Básico</label>
 
       <input
         type="radio"
         name="radio2"
         value="admin"
         id="option4"
+        class="form-check-input me-3"
         [formControl]="rol"
       />
-      <label for="option4">Administrador</label>
+      <label class="me-5" for="option4">Administrador</label>
     </form>
 
-    <button type="submit">Actualizar</button>
+    <button class="btn btn-primary" type="submit">Actualizar</button>
   </form>
 </div>

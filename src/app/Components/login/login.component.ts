@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
         };
         this.headerMenusService.headerManagement.next(headerInfo);
         this.loginForm.reset();
-        this.router.navigateByUrl('dashboard');
+        this.router.navigateByUrl('calendar');
       },
       (error: HttpErrorResponse) => {
         responseOK = false;

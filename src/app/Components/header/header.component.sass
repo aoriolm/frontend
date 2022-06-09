@@ -1,35 +1,83 @@
-* 
-    margin: 0px
-    padding: 0px
-
-body 
-    margin: auto
-    width: 1400px
-    font-family: Arial, Helvetica, sans-serif
 
 .pre-header
     background: #1f1d1d
     color: goldenrod
-    height: 130px
-    
-.main-header 
+    height: 120px
+
+.main-header
     width: 100%
     margin: 20px auto
     text-align: center
+    align-items: center
+    display: flex
+    justify-content: space-between
 
 .logo-img
     float: left
+    margin-left: 30px
 
-.imagen 
+.imagen
     height: 130px
 
-.logo-header 
-    padding: 15px 0 0 0
-    text-align: center
-
-.site-name 
+.site-name
     display: block
     font-family: Helvetica, Arial, sans-serif
     font-weight: 100
     font-size: 3.5em
 
+.button-login
+    margin-right: 30px
+.container_flex
+    display: flex
+    flex-direction: column
+    align-items: center
+
+.container_flex_row
+    display: flex
+    flex-direction: row
+    justify-content: space-around
+    width: 100%
+
+nav
+    background-color: #1f1d1d
+
+.nav-link
+    background-color: #1f1d1d
+
+#navbarNav
+    width: 100%
+    font-size: 1.5em
+
+.container-fluid
+    display: flex
+    flex-direction: column
+    align-content: space-between
+
+.navbar-nav
+    width: 100%
+    display: flex
+    justify-content: center
+
+    & li ul
+        display: none
+        position: absolute
+        list-style: none
+        padding: 0
+        text-align: left
+        background-color: #1f1d1d
+
+    & li:hover > ul
+        display: block
+
+.panel
+    background-color: #1f1d1d
+
+.panel__botones
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin: 0px auto
+    margin-bottom: 20px
+    max-width: 1000px
+    text-align: center
+    padding-bottom: 20px

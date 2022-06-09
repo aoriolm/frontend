@@ -1,62 +1,84 @@
-<div>
-  <h1>Crear un servicio</h1>
+<div class="centrado">
+  <h1>Crear o modificar un servicio</h1>
   <form [formGroup]="servicioForm" (ngSubmit)="guardarServicio()">
-    <div>
-      <label for="nombre">Nombre: </label>
-      <input type="text" [formControl]="nombre" />
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [formControl]="nombre"
+        id="nombre"
+      />
+      <label for="nombre">Nombre</label>
       <div
         *ngIf="nombre.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="nombre.errors.required">Nombre is required</div>
+        <div *ngIf="nombre.errors.required">El nombre es necesario</div>
         <div *ngIf="nombre.errors.minlength">
-          Nombre must be at least 5 characters long.
+          El nombre debe tener 5 carácteres como mínimo.
         </div>
         <div *ngIf="nombre.errors.maxlength">
-          Nombre can be max 25 characters long.
+          El nombre debe tener 25 carácteres como máximo.
         </div>
       </div>
     </div>
 
-    <div>
-      <label for="descripcion">Descripcion: </label>
-      <input type="text" [formControl]="descripcion" />
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [formControl]="descripcion"
+        id="descripcion"
+      />
+      <label for="descripcion">Descripción</label>
       <div
         *ngIf="descripcion.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="descripcion.errors.required">descripcion is required</div>
+        <div *ngIf="descripcion.errors.required">
+          El descripcion es necesario
+        </div>
         <div *ngIf="descripcion.errors.minlength">
-          descripcion must be at least 5 characters long.
+          El descripcion debe tener 5 carácteres como mínimo.
         </div>
         <div *ngIf="descripcion.errors.maxlength">
-          descripcion can be max 250 characters long.
+          El descripcion debe tener 250 carácteres como máximo.
         </div>
       </div>
     </div>
 
-    <div>
-      <label for="precio">Precio: </label>
-      <input type="text" [formControl]="precio" />
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [formControl]="precio"
+        id="precio"
+      />
+      <label for="precio">Precio</label>
       <div
         *ngIf="precio.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="precio.errors.required">precio is required</div>
+        <div *ngIf="precio.errors.required">El precio es necesario.</div>
       </div>
     </div>
 
-    <div>
-      <label for="duracion">Duracion: </label>
-      <input type="text" [formControl]="duracion" />
+    <div class="form-floating mb-3">
+      <input
+        type="text"
+        class="form-control"
+        [formControl]="duracion"
+        id="duracion"
+      />
+      <label for="duracion">duracion</label>
       <div
         *ngIf="duracion.errors && isValidForm != null && !isValidForm"
         [ngClass]="'error'"
       >
-        <div *ngIf="duracion.errors.required">duracion is required</div>
+        <div *ngIf="duracion.errors.required">la duracion es necesaria.</div>
       </div>
     </div>
 
-    <button type="submit">Guardar Servicio</button>
+    <button class="btn btn-primary" type="submit">Guardar Servicio</button>
   </form>
 </div>

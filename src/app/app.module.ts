@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,17 +11,27 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './Components/calendar/calendar.component';
 import { FormCitasComponent } from './Components/citas/form-citas/form-citas.component';
 import { ListCitasComponent } from './Components/citas/list-citas/list-citas.component';
-import { DashboardComponent } from './Components/dashboard/dashboard.component';
 import { HeaderComponent } from './Components/header/header.component';
 import { HomeComponent } from './Components/home/home.component';
+import { ListSignupComponent } from './Components/list-signup/list-signup.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ProfileComponent } from './Components/profile/profile.component';
 import { FormServiciosComponent } from './Components/servicios/form-servicios/form-servicios.component';
 import { ListServiciosComponent } from './Components/servicios/list-servicios/list-servicios.component';
 import { SignupComponent } from './Components/signup/signup.component';
-import { ListSignupComponent } from './Components/list-signup/list-signup.component';
-import { MostrarUsuarioPipe } from './Pipes/mostrar-usuario.pipe';
 import { MostrarServicioPipe } from './Pipes/mostrar-servicio.pipe';
+import { MostrarUsuarioPipe } from './Pipes/mostrar-usuario.pipe';
+import { AuthInterceptorService } from './Services/auth-interceptor.service';
+import { CorporalesComponent } from './Components/web/corporales/corporales.component';
+import { DepilacionComponent } from './Components/web/depilacion/depilacion.component';
+import { FacialesComponent } from './Components/web/faciales/faciales.component';
+import { LaserComponent } from './Components/web/laser/laser.component';
+import { ManicurasComponent } from './Components/web/manicuras/manicuras.component';
+import { MaquillajesComponent } from './Components/web/maquillajes/maquillajes.component';
+import { MasajesComponent } from './Components/web/masajes/masajes.component';
+import { MicrobladingComponent } from './Components/web/microblading/microblading.component';
+import { PedicurasComponent } from './Components/web/pedicuras/pedicuras.component';
+import { PestanasComponent } from './Components/web/pestanas/pestanas.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -38,7 +48,6 @@ FullCalendarModule.registerPlugins([
     ProfileComponent,
     FormCitasComponent,
     HomeComponent,
-    DashboardComponent,
     FormServiciosComponent,
     ListServiciosComponent,
     CalendarComponent,
@@ -46,6 +55,16 @@ FullCalendarModule.registerPlugins([
     ListSignupComponent,
     MostrarUsuarioPipe,
     MostrarServicioPipe,
+    CorporalesComponent,
+    DepilacionComponent,
+    FacialesComponent,
+    LaserComponent,
+    ManicurasComponent,
+    MaquillajesComponent,
+    MasajesComponent,
+    MicrobladingComponent,
+    PedicurasComponent,
+    PestanasComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,7 +73,13 @@ FullCalendarModule.registerPlugins([
     HttpClientModule,
     FullCalendarModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

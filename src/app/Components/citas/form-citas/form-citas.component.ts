@@ -60,23 +60,11 @@ export class FormCitasComponent implements OnInit {
       [Validators.required]
     );
 
-    this.user_id = new FormControl([
-      null,
-      [Validators.required],
-      [Validators.required],
-    ]);
+    this.user_id = new FormControl(null, [Validators.required]);
 
-    this.servicio = new FormControl([
-      null,
-      [Validators.required],
-      [Validators.required],
-    ]);
+    this.servicio = new FormControl(null, [Validators.required]);
 
-    this.idEvento = new FormControl([
-      null,
-      [Validators.required],
-      [Validators.required],
-    ]);
+    this.idEvento = new FormControl(null, [Validators.required]);
 
     this.loadUsers();
     this.loadServicios();
@@ -85,7 +73,7 @@ export class FormCitasComponent implements OnInit {
       start: this.start,
       user_id: this.user_id,
       servicio: this.servicio,
-      idEvento: this.idEvento,
+      idEvento: '',
     });
   }
 
@@ -98,9 +86,9 @@ export class FormCitasComponent implements OnInit {
       this.citaService.getCitabyId(this.citaId).subscribe((cita) => {
         console.log('La cita que se ha leido es: ', cita);
         console.log('La fecha leida es: ', cita.start);
-        this.start.setValue(
-          new Date(cita.start).toISOString().replace('Z', '')
-        );
+        let date = new Date(cita.start);
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        this.start.setValue(date.toISOString().replace('Z', ''));
         console.log('La fecha que se pasa al formulario: ', this.start);
         this.user_id.setValue(cita.user_id);
         this.servicio.setValue(cita.servicio);
@@ -129,18 +117,18 @@ export class FormCitasComponent implements OnInit {
   }
 
   crearCita(): void {
-    this.isValidForm = false;
-    console.log('citaForm.invalid es: ', this.citaForm.invalid);
+    /*this.isValidForm = false;
+    
     if (!this.citaForm.value.idEvento) {
       console.log('El formulario no es valido');
       return;
     }
 
-    this.isValidForm = true;
+    this.isValidForm = true;*/
 
     this.signupCita = this.citaForm.value;
     console.log('Esta es la cita: ', this.signupCita);
-    console.log('Este es la fecha de la cita: ', this.signupCita.start);
+    console.log('Esta es la fecha de la cita: ', this.signupCita.start);
     //Leo los datos del ususario y servicio escogidos en el form
     this.servicioService
       .getServicioById(this.signupCita.servicio)
@@ -200,12 +188,12 @@ export class FormCitasComponent implements OnInit {
       'UPDATE valor de citaForm al entrar en editarCita: ',
       this.citaForm.value
     );
-    this.isValidForm = false;
+    /*this.isValidForm = false;
     if (this.citaForm.invalid) {
       return;
     }
 
-    this.isValidForm = true;
+    this.isValidForm = true;*/
     this.servicioService
       .getServicioById(this.citaForm.value.servicio)
       .subscribe((servicioLeido: ServicioDTO) => {
@@ -264,10 +252,12 @@ export class FormCitasComponent implements OnInit {
   }
 
   guardarCita(): void {
+    this.isValidForm = false;
     if (this.citaForm.invalid) {
+      console.log('citaForm.invalid es: ', this.citaForm.invalid);
       return;
     }
-
+    this.isValidForm = true;
     if (this.isUpdate) {
       console.log('Se va a llamar a editarCita');
       this.editarCita();

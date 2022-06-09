@@ -1,27 +1,37 @@
-<h2>Gestionar servicios</h2>
-<button (click)="createServicio()">ADD</button>
+<div class="centrado1400px">
+  <h2>Gestionar servicios</h2>
+  <button class="btn btn-primary" (click)="createServicio()">ADD</button>
 
-<table>
-  <thead>
-    <tr>
-      <th>NOMBRE</th>
-      <th>DESCRIPTION</th>
-      <th>PRECIO</th>
-      <th>DURACION</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let servicio of servicios">
-      <td>{{ servicio.nombre }}</td>
-      <td>{{ servicio.descripcion }}</td>
-      <td>{{ servicio.precio }}</td>
-      <td>{{ servicio.duracion }}</td>
-      <td>
-        <button (click)="updateServicio(servicio._id)">UPDATE</button>
-        <button (click)="deleteServicio(servicio._id, servicio.nombre)">
-          DELETE
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>NOMBRE</th>
+        <th>DESCRIPTION</th>
+        <th>PRECIO</th>
+        <th>DURACION</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let servicio of servicios">
+        <td>{{ servicio.nombre }}</td>
+        <td>{{ servicio.descripcion }}</td>
+        <td>{{ servicio.precio }}</td>
+        <td>{{ servicio.duracion }}</td>
+        <td>
+          <button
+            class="btn btn-success btn--margin"
+            (click)="updateServicio(servicio._id)"
+          >
+            UPDATE
+          </button>
+          <button
+            class="btn btn-danger"
+            (click)="deleteServicio(servicio._id, servicio.nombre)"
+          >
+            DELETE
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

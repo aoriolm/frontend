@@ -1,25 +1,37 @@
-<h2>Gestionar citas</h2>
-<button (click)="createCita()">ADD</button>
+<div class="centrado1400px">
+  <h1>Gestionar citas</h1>
+  <button class="btn btn-primary" (click)="createCita()">ADD</button>
 
-<table>
-  <thead>
-    <tr>
-      <th>FECHA Y HORA DE INICIO</th>
-      <th>CLIENTE</th>
-      <th>SERVICIO</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cita of citas">
-      <td>{{ cita.start | date: "dd/MM/yy, h:mm a" }}</td>
-      <td>{{ cita.user_id | mostrarUsuario }}</td>
-      <td>{{ cita.servicio | mostrarServicio }}</td>
-      <td>
-        <button (click)="updateCita(cita._id)">UPDATE</button>
-        <button (click)="deleteCita(cita._id, cita.start, cita.idEvento)">
-          DELETE
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>FECHA Y HORA DE INICIO</th>
+        <th>CLIENTE</th>
+        <th>SERVICIO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cita of citas">
+        <td>{{ cita.start | date: "dd/MM/yy, H:mm" }}</td>
+        <td>{{ cita.user_id }}</td>
+        <!-- | mostrarUsuario -->
+        <td>{{ cita.servicio }}</td>
+        <!-- | mostrarServicio -->
+        <td>
+          <button
+            class="btn btn-success btn--margin"
+            (click)="updateCita(cita._id)"
+          >
+            UPDATE
+          </button>
+          <button
+            class="btn btn-danger"
+            (click)="deleteCita(cita._id, cita.start, cita.idEvento)"
+          >
+            DELETE
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

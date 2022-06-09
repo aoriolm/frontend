@@ -1,37 +1,48 @@
-<h2>Gestionar clientes</h2>
-<button (click)="createCliente()">ADD</button>
+<div class="centrado1400px">
+  <h2>Gestionar clientes</h2>
+  <button class="btn btn-primary" (click)="createCliente()">Añadir</button>
 
-<table>
-  <thead>
-    <tr>
-      <th>E-MAIL</th>
-      <th>NOMBRE</th>
-      <th>APELLIDO 1</th>
-      <th>APELLIDO 2</th>
-      <th>NACIMIENTO</th>
-      <th>TELEFONO 1</th>
-      <th>TELEFONO 2</th>
-      <th>GENERO</th>
-      <th>ROL</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let cliente of clientes">
-      <td>{{ cliente.email }}</td>
-      <td>{{ cliente.nombre }}</td>
-      <td>{{ cliente.apellido1 }}</td>
-      <td>{{ cliente.apellido2 }}</td>
-      <td>{{ cliente.nacimiento | date: "dd-MM-yyyy" }}</td>
-      <td>{{ cliente.tel1 }}</td>
-      <td>{{ cliente.tel2 }}</td>
-      <td>{{ cliente.genero }}</td>
-      <td>{{ cliente.rol }}</td>
-      <td>
-        <button (click)="updateCliente(cliente._id)">UPDATE</button>
-        <button (click)="deleteCliente(cliente._id, cliente.nombre)">
-          DELETE
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>E-MAIL</th>
+        <th>NOMBRE</th>
+        <th>APELLIDO 1</th>
+        <th>APELLIDO 2</th>
+        <th>NACIMIENTO</th>
+        <th>TEL. PRINCIPAL</th>
+        <th>TEL. SECUNDARIO</th>
+        <th>GENERO</th>
+        <th>ROL</th>
+        <th>ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cliente of clientes">
+        <td>{{ cliente.email }}</td>
+        <td>{{ cliente.nombre }}</td>
+        <td>{{ cliente.apellido1 }}</td>
+        <td>{{ cliente.apellido2 }}</td>
+        <td>{{ cliente.nacimiento | date: "dd-MM-yyyy" }}</td>
+        <td>{{ cliente.tel1 }}</td>
+        <td>{{ cliente.tel2 }}</td>
+        <td>{{ cliente.genero }}</td>
+        <td>{{ cliente.rol }}</td>
+        <td>
+          <button
+            class="btn btn-success btn--margin"
+            (click)="updateCliente(cliente._id)"
+          >
+            Actualizar
+          </button>
+          <button
+            class="btn btn-danger"
+            (click)="deleteCliente(cliente._id, cliente.nombre)"
+          >
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

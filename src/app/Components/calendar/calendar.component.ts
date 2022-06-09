@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import esLocale from '@fullcalendar/core/locales/es';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import listPlugin from '@fullcalendar/list';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import { CitaDTO } from 'src/app/Models/cita.dto';
 import { CitaService } from 'src/app/Services/cita.service';
@@ -22,34 +23,22 @@ export class CalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.prueba = [
-      {
-        title: 'Evento 1',
-        start: new Date(),
-        description: 'Evento 1',
-      },
-      {
-        title: 'Evento 2',
-        start: new Date(new Date().getTime() + 86400000),
-        description: 'Evento 2',
-      },
-      {
-        title: 'Evento 3',
-        start: new Date(new Date().getTime() + 86400000 * 2),
-        end: new Date(new Date().getTime() + 86400000 * 3),
-        description: 'Evento 3',
-      },
-    ];
     this.options = {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin],
+      initialView: 'listWeek',
       locale: esLocale,
       headerToolbar: {
         start: 'prev,next',
         center: 'title',
-        end: 'dayGridMonth,timeGridWeek,timeGridDay,today',
+        end: 'timeGridDay,listDay,listWeek,listMonth',
+      },
+      views: {
+        timeGridDay: { buttonText: 'Día horas' },
+        listDay: { buttonText: 'Día lista' },
+        listWeek: { buttonText: 'Semana lista' },
+        listMonth: { buttonText: 'Mes lista' },
       },
       editable: false,
-      events: this.prueba,
     };
   }
 
