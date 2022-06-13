@@ -43,7 +43,7 @@ export class HeaderComponent implements OnInit {
       };
 
       this.headerMenusService.headerManagement.next(headerInfo);
-      value = '';
+      value = 'home';
     }
     this.router.navigateByUrl(value);
   }
