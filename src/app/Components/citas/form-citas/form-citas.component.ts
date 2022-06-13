@@ -131,8 +131,10 @@ export class FormCitasComponent implements OnInit {
             console.log('El valor de start es:', this.newEvent.start);
             this.newEvent.end = new Date(
               new Date(this.signupCita.start).getTime() +
-                servicioLeido.duracion * 60000
+                servicioLeido.duracion * 60000 +
+                120 * 60000
             );
+
             this.newEvent.title =
               servicioLeido.nombre +
               ' / ' +
