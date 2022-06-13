@@ -38,7 +38,7 @@ export class CalendarComponent implements OnInit {
         listMonth: { buttonText: 'Mes lista' },
       },
       editable: false,
-      timezone: 'UTC',
+      timezone: 'GMT',
     };
   }
 
@@ -47,7 +47,6 @@ export class CalendarComponent implements OnInit {
     let respuesta: any;
     this.citaService.obtenerEvents().subscribe((events) => {
       this.options.events = events;
-      console.log(events);
     });
   }
 }
