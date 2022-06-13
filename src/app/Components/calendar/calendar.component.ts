@@ -38,7 +38,7 @@ export class CalendarComponent implements OnInit {
         listMonth: { buttonText: 'Mes lista' },
       },
       editable: false,
-      timezone: 'Europe/London',
+      timeZone: 'Europe/London',
     };
   }
 
