@@ -128,10 +128,7 @@ export class FormCitasComponent implements OnInit {
           .subscribe((userLeido: UserDTO) => {
             //Ahora que tenemos estos datos guardamos la cita y el evento en la BD
             this.newEvent.start = this.signupCita.start;
-            this.newEvent.start.setMinutes(
-              this.newEvent.start.getMinutes() -
-                this.newEvent.start.getTimezoneOffset()
-            );
+            console.log('El valor de start es:', this.newEvent.start);
             this.newEvent.end = new Date(
               new Date(this.signupCita.start).getTime() +
                 servicioLeido.duracion * 60000
